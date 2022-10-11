@@ -33,3 +33,10 @@ TEMP = os.path.abspath(os.path.join(HOME, "temp"))
 
 
 __all__ = ["HOME", "DATA", "DOCS", "TEMP"]
+
+__all_plugins__ = [
+    "compas_igs2.rhino.install",
+    "compas_igs2.rhino.artists",
+    "compas_igs2.rhino.objects",
+    "compas_igs2.rhino.register",
+]
