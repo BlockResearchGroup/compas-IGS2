@@ -1,0 +1,22 @@
+{
+    "plugin": {
+        "id": "{18a65b9c-1a08-43ef-a1fd-ef458f0a1fa0}",
+        "version": "0.0.1.0",
+        "title": "FoFin",
+        "license": "MIT License",
+        "logo": null,
+        "description": "COMPAS IGS2...",
+        "website": "https://github.com/BlockResearchGroup/compas-IGS2",
+        "authors": []
+    },
+    "packages": [
+        "compas",
+        "compas_rhino",
+        "compas_cloud",
+        "compas_ui",
+        "compas_ags",
+        "compas_igs2"
+    ],
+    "settings": {
+    }
+}
