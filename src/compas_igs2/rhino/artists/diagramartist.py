@@ -5,10 +5,7 @@ from __future__ import division
 from diagramartist import DiagramArtist
 
 
-__all__ = ['ForceArtist']
-
-
-class ForceArtist(DiagramArtist):
+class RhinoDiagramArtist(DiagramArtist):
     """Artist for force diagrams in AGS.
 
     Parameters
@@ -19,4 +16,4 @@ class ForceArtist(DiagramArtist):
     """
 
     def __init__(self, force, layer=None):
-        super(ForceArtist, self).__init__(force, layer=layer)
+        super(RhinoDiagramArtist, self).__init__(*args, **kwargs)
