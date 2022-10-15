@@ -2,8 +2,6 @@ from __future__ import print_function
 from __future__ import absolute_import
 from __future__ import division
 
-import scriptcontext as sc
-
 import compas_rhino
 
 from compas_ui.ui import UI
@@ -17,8 +15,7 @@ __commandname__ = "IGS2_form_from_lines"
 
 @UI.error()
 def RunCommand(is_interactive):
-
-
+    """Formdiagram from lines"""
     ui = UI()
 
     guids = compas_rhino.select_lines(message='Select Form Diagram Lines')
@@ -35,7 +32,6 @@ def RunCommand(is_interactive):
         return
 
     form = FormDiagram.from_graph(graph)
-
 
     ui.scene.add(form, name='Form')
     ui.scene.update()

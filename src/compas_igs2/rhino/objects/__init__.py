@@ -4,6 +4,7 @@ from __future__ import division
 
 from compas.plugins import plugin
 
+from compas_ags.diagrams import Diagram  # noqa: F401
 from compas_ags.diagrams import FormDiagram  # noqa: F401
 from compas_ags.diagrams import ForceDiagram  # noqa: F401
 
@@ -17,6 +18,7 @@ from .forceobject import RhinoForceObject  # noqa: F401
 @plugin(category="ui", requires=["Rhino"])
 def register_objects():
 
+    RhinoObject.register(Diagram, RhinoDiagramObject, context="Rhino")
     RhinoObject.register(FormDiagram, RhinoFormObject, context="Rhino")
     RhinoObject.register(ForceDiagram, RhinoForceObject, context="Rhino")
 
@@ -24,7 +26,7 @@ def register_objects():
 
 
 __all__ = [
-    "DiagramObject",
+    "RhinoDiagramObject",
     "RhinoForceObject",
     "RhinoFormObject"
 ]

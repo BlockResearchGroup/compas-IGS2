@@ -2,7 +2,6 @@ from __future__ import print_function
 from __future__ import absolute_import
 from __future__ import division
 
-from compas.colors import Color
 from compas_igs2.objects import DiagramObject
 
 
@@ -26,7 +25,7 @@ class ForceObject(DiagramObject):
         'color.edges': (0, 0, 0),
         'color.edges:is_ind': (0, 255, 255),
         'color.edges:is_external': (0, 255, 0),
-        'color.edges:is_reaction': (0, 255, 0),
+        'color.edges:is_reaction': (0, 0, 0),
         'color.edges:is_load': (0, 255, 0),
         'color.edges:target_force': (255, 255, 255),
         'color.edges:target_vector': (255, 255, 255),
