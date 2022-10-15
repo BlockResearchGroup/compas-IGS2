@@ -12,9 +12,9 @@ from compas.geometry import add_vectors
 from compas.geometry import subtract_vectors
 from compas.geometry import rotate_points_xy
 
-from compas_igs.objects import ForceObject
+from compas_igs2.objects import ForceObject
 
-from compas_ig2.rhino import RhinoDiagramObject
+from compas_igs2.rhino.objects import RhinoDiagramObject
 
 
 class RhinoForceObject(ForceObject, RhinoDiagramObject):
