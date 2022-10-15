@@ -10,6 +10,8 @@ class FormObject(DiagramObject):
     """Base object for representing a form diagram in the scene."""
 
     SETTINGS = {
+        'layer': "formdiagram",
+
         'show.vertices': True,
         'show.edges': True,
         'show.vertexlabels': False,

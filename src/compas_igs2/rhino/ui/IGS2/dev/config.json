@@ -1,8 +1,8 @@
 {
     "plugin": {
-        "id": "{18a65b9c-1a08-43ef-a1fd-ef458f0a1fa0}",
+        "id": "{aa509b0a-64d6-4a3f-a0c3-028565cf3174}",
         "version": "0.0.1.0",
-        "title": "FoFin",
+        "title": "IGS2",
         "license": "MIT License",
         "logo": null,
         "description": "COMPAS IGS2...",

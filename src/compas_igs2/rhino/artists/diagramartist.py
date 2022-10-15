@@ -2,7 +2,7 @@ from __future__ import print_function
 from __future__ import absolute_import
 from __future__ import division
 
-from diagramartist import DiagramArtist
+from compas_igs2.artist import DiagramArtist
 
 
 class RhinoDiagramArtist(DiagramArtist):

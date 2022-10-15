@@ -9,6 +9,8 @@ from compas_igs2.objects import DiagramObject
 class ForceObject(DiagramObject):
     """Base object for representing a force diagram in a scene."""
     SETTINGS = {
+        'layer': "forcediagram",
+
         'show.vertices': True,
         'show.edges': True,
         'show.vertexlabels': False,

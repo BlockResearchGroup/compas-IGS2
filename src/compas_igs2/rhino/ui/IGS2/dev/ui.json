@@ -1,24 +1,57 @@
 {
     "icons": {
-        "bitmap": [
-        ],
-        "images": [
+        "bitmap": "assets/IGS2_ui.png",
+        "images":
+        [
+            "0_formdiagram_from_lines"
         ]
     },
 
-    "commands": [
+    "commands":
+    [
+        {
+            "name": "IGS2_form_from_lines",
+            "menu_text": "FormDiagram from lines",
+            "icon": 0,
+            "tooltip": "FormDiagram from lines"
+        }
     ],
 
-    "menus": [
+    "menus":
+    [
         {
+            "name" : "IGS2",
+            "items":
+            [
+                {
+                    "command": "IGS2_form_from_lines"
+                }
+            ]
         }
     ],
-    "toolbars": [
+
+    "toolbars":
+    [
         {
+            "name" : "IGS2",
+            "items":
+            [
+                {
+                    "command": "IGS2_form_from_lines"
+                }
+            ]
         }
+
     ],
-    "toolbargroups": [
+
+    "toolbargroups":
+    [
         {
+            "name": "IGS2",
+            "toolbars":
+            [
+                "IGS2"
+            ]
         }
     ]
 }
