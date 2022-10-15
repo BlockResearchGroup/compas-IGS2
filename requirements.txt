@@ -1,0 +1,4 @@
+compas
+compas_ags
+compas_ui >=0.6.1
+python-planarity

@@ -92,7 +92,7 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(
-        description="COMPAS FormFinder installer command line utility."
+        description="COMPAS IGS2 installer command line utility."
     )
     parser.add_argument(
         "--version",
