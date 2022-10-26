@@ -14,7 +14,7 @@ from __future__ import division
 
 from compas_ui.rhino.objects import RhinoMeshObject
 from compas_igs2.objects import DiagramObject
-from compas_igs2.rhino.conduits import ForceDiagramVertexInspector
+# from compas_igs2.rhino.conduits import ForceDiagramVertexInspector
 
 
 class RhinoDiagramObject(DiagramObject, RhinoMeshObject):
@@ -22,19 +22,19 @@ class RhinoDiagramObject(DiagramObject, RhinoMeshObject):
         super(RhinoDiagramObject, self).__init__(*args, **kwargs)
         self._inspector = None
 
-    @property
-    def inspector(self):
-        if not self._inspector:
-            self._inspector = ForceDiagramVertexInspector(self.diagram)
-        return self._inspector
+    # @property
+    # def inspector(self):
+    #     if not self._inspector:
+    #         self._inspector = ForceDiagramVertexInspector(self.diagram)
+    #     return self._inspector
 
-    def inspector_on(self, form):
-        self.inspector.form_vertex_xyz = form.artist.vertex_xyz
-        self.inspector.force_vertex_xyz = self.artist.vertex_xyz
-        self.inspector.enable()
+    # def inspector_on(self, form):
+    #     self.inspector.form_vertex_xyz = form.artist.vertex_xyz
+    #     self.inspector.force_vertex_xyz = self.artist.vertex_xyz
+    #     self.inspector.enable()
 
-    def inspector_off(self):
-        self.inspector.disable()
+    # def inspector_off(self):
+    #     self.inspector.disable()
 
     # ==========================================================================
     # Methods
