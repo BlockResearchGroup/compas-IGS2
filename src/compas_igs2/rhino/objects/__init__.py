@@ -4,15 +4,15 @@ from __future__ import division
 
 from compas.plugins import plugin
 
-from compas_ags.diagrams import Diagram  # noqa: F401
-from compas_ags.diagrams import FormDiagram  # noqa: F401
-from compas_ags.diagrams import ForceDiagram  # noqa: F401
+from compas_ags.diagrams import Diagram
+from compas_ags.diagrams import FormDiagram
+from compas_ags.diagrams import ForceDiagram
 
 from compas_ui.rhino.objects import RhinoObject
 
-from .diagramobject import RhinoDiagramObject  # noqa: F401
-from .formobject import RhinoFormObject  # noqa: F401
-from .forceobject import RhinoForceObject  # noqa: F401
+from .diagramobject import RhinoDiagramObject
+from .formobject import RhinoFormObject
+from .forceobject import RhinoForceObject
 
 
 @plugin(category="ui", requires=["Rhino"])
@@ -25,8 +25,4 @@ def register_objects():
     print("IGS Rhino Objects registered.")
 
 
-__all__ = [
-    "RhinoDiagramObject",
-    "RhinoForceObject",
-    "RhinoFormObject"
-]
+__all__ = ["RhinoDiagramObject", "RhinoForceObject", "RhinoFormObject"]
