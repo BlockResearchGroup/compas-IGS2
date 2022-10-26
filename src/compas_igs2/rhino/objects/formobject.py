@@ -60,14 +60,18 @@ class RhinoFormObject(FormObject, RhinoDiagramObject):
         if not self.visible:
             return
 
+        def vertex_is_constrained(key, attr):
+            return True if attr["line_constraint"] else False
+
+        def edge_is_constrained(key, attr):
+            return True if attr["target_vector"] else False
+
         self.artist.vertex_xyz = self.vertex_xyz
 
         # vertices
         if self.settings["show.vertices"]:
             vertices = list(self.diagram.vertices())
-            constrained = self.diagram.vertices_where_predicate(
-                lambda item: item[1]["line_constraint"]
-            )
+            constrained = self.diagram.vertices_where_predicate(vertex_is_constrained)
             fixed = self.diagram.vertices_where(is_fixed=True)
 
             color = self.settings["color.vertices"]
@@ -91,9 +95,7 @@ class RhinoFormObject(FormObject, RhinoDiagramObject):
             loads = self.diagram.edges_where(is_load=True)
             reactions = self.diagram.edges_where(is_reaction=True)
             indetermined = self.diagram.edges_where(is_ind=True)
-            constrained = self.diagram.edges_where_predicate(
-                lambda item: item[1]["target_vector"]
-            )
+            constrained = self.diagram.edges_where_predicate(edge_is_constrained)
 
             color = self.settings["color.edges"]
             color_external = self.settings["color.edges:is_external"]
