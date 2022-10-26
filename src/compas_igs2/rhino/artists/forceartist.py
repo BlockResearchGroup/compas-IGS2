@@ -2,21 +2,11 @@ from __future__ import print_function
 from __future__ import absolute_import
 from __future__ import division
 
-from .diagramartist import DiagramArtist
+from compas_igs2.artists import ForceArtist
+from compas_igs2.rhino.artists import RhinoDiagramArtist
 
 
-__all__ = ['ForceArtist']
-
-
-class ForceArtist(DiagramArtist):
-    """Artist for force diagrams in AGS.
-
-    Parameters
-    ----------
-    form: compas_ags.diagrams.FormDiagram
-        The form diagram to draw.
-
+class RhinoForceArtist(ForceArtist, RhinoDiagramArtist):
     """
-
-    def __init__(self, force, layer=None):
-        super(ForceArtist, self).__init__(force, layer=layer)
+    Rhino artist for AGS force diagrams.
+    """

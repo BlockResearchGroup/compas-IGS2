@@ -11,22 +11,10 @@ from compas_rhino.install import install as install_packages
 from compas_rhino.install import _filter_installable_packages
 from compas_rhino.install_plugin import install_plugin
 from compas_ui.rhino.install import check_folders
-# from compas_ui.rhino.install import check_dependencies
 from compas_ui.rhino.install import install as install_ui
 
 
 HERE = os.path.dirname(__file__)
-
-# Split up the installation process into smaller parts
-# TODO: check that all folders are where they were expected
-# TODO: check that user has write access to all required folders
-# TODO: check that all required packages are available in the current env
-# TODO: install all packages for Rhino (not just required)
-# TODO: remove old versions of the plugin
-# TODO: remove old versions of the rui file
-# TODO: install the plugin
-# TODO: install the rui file
-# TODO: use a proper logger
 
 
 @plugin(category="install", tryfirst=True)
@@ -34,9 +22,7 @@ def installable_rhino_packages():
     return ["compas_igs2"]
 
 
-def install(version="7.0"):
-    plugin_name = "IGS2"
-    plugin_path = os.path.join(HERE, "ui", plugin_name)
+def install(plugin_name, plugin_path, rhino_version):
     if not os.path.isdir(plugin_path):
         raise Exception("Cannot find the plugin: {}".format(plugin_path))
 
@@ -48,20 +34,20 @@ def install(version="7.0"):
         config = json.load(f)
 
     packages = []
-    packages = _filter_installable_packages(version, packages)
+    packages = _filter_installable_packages(rhino_version, packages)
 
     if "packages" in config:
         for name in config["packages"]:
             if name not in packages:
                 packages.append(name)
 
-    install_packages(version=version, packages=packages)
+    install_packages(version=rhino_version, packages=packages)
     install_plugin(plugin_path)
 
     if compas.WINDOWS:
         plugin_ruipy = os.path.join(plugin_dev, "rui.py")
         plugin_rui = "{}.rui".format(plugin_name)
-        python_plugins_path = compas_rhino._get_rhino_pythonplugins_path(version)
+        python_plugins_path = compas_rhino._get_rhino_pythonplugins_path(rhino_version)
 
         call(sys.executable + " " + plugin_ruipy, shell=True)
         copyfile(
@@ -70,22 +56,20 @@ def install(version="7.0"):
         )
 
 
-def main(plugin_name, version):
-    print("="*20, "Checking Folders", "="*20)
-    if not check_folders(plugin_name, version):
+def main(plugin_name, rhino_version):
+    print("=" * 20, "Checking Folders", "=" * 20)
+    if not check_folders(plugin_name, rhino_version):
         return
 
-    # print("="*20, "Checking Dependencies", "="*20)
-    # if not check_dependencies(os.path.join(HERE, "..", "..", "..", "requirements.txt")):
-    #     return
+    plugin_path = os.path.join(HERE, "ui", plugin_name)
 
-    print("="*20, "Running COMPAS UI Installation", "="*20)
-    install_ui(version)
+    print("=" * 20, "Running COMPAS UI Installation", "=" * 20)
+    install_ui(rhino_version)
 
-    print("="*20, "Running COMPAS IGS2 Installation", "="*20)
-    install(version)
+    print("=" * 20, "Running COMPAS IGS2 Installation", "=" * 20)
+    install(plugin_name, plugin_path, rhino_version)
 
-    print("="*20, "Installation Completed", "="*20)
+    print("=" * 20, "Installation Completed", "=" * 20)
 
 
 if __name__ == "__main__":
@@ -95,10 +79,11 @@ if __name__ == "__main__":
         description="COMPAS IGS2 installer command line utility."
     )
     parser.add_argument(
+        "-v",
         "--version",
-        default="7.0",
-        choices=["6.0", "7.0"],
-        help="Version of Rhino.",
+        choices=compas_rhino.SUPPORTED_VERSIONS,
+        default=compas_rhino.DEFAULT_VERSION,
+        help="The version of Rhino to install the packages in.",
     )
     args = parser.parse_args()
 
