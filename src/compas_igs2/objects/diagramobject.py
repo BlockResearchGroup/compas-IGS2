@@ -17,5 +17,3 @@ class DiagramObject(MeshObject):
     @diagram.setter
     def diagram(self, diagram):
         self.mesh = diagram
-
-    

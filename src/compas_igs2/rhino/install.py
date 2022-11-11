@@ -75,9 +75,7 @@ def main(plugin_name, rhino_version):
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(
-        description="COMPAS IGS2 installer command line utility."
-    )
+    parser = argparse.ArgumentParser(description="COMPAS IGS2 installer command line utility.")
     parser.add_argument(
         "-v",
         "--version",

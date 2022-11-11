@@ -80,9 +80,7 @@ class RhinoFormObject(FormObject, RhinoDiagramObject):
 
             vertex_color = {vertex: color for vertex in vertices}
             if self.settings["show.constraints"]:
-                vertex_color.update(
-                    {vertex: color_constrained for vertex in constrained}
-                )
+                vertex_color.update({vertex: color_constrained for vertex in constrained})
             vertex_color.update({vertex: color_fixed for vertex in fixed})
 
             guids = self.artist.draw_vertices(color=vertex_color)
