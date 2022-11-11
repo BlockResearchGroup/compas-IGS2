@@ -134,9 +134,7 @@ class ForceDiagramVertexInspector(ForceDiagramInspector):
 
         for index, vertex in enumerate(self.force_vertex_xyz):
             c = self.force_vertex_xyz[vertex]
-            D = length_vector(
-                cross_vectors(subtract_vectors(a, c), subtract_vectors(b, c))
-            )
+            D = length_vector(cross_vectors(subtract_vectors(a, c), subtract_vectors(b, c)))
             if D / Lab < self.tol:
                 point = Point3d(*c)
                 draw_dot(point, str(index), self.dotcolor, self.textcolor)

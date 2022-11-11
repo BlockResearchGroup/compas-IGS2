@@ -58,9 +58,7 @@ class RhinoForceObject(ForceObject, RhinoDiagramObject):
 
                 if self.settings["show.constraints"]:
                     if self.diagram.vertex_attribute(vertex, "line_constraint"):
-                        vertex_color[vertex] = self.settings[
-                            "color.vertices:line_constraint"
-                        ]
+                        vertex_color[vertex] = self.settings["color.vertices:line_constraint"]
 
                 if self.diagram.vertex_attribute(vertex, "is_fixed"):
                     vertex_color[vertex] = self.settings["color.vertices:is_fixed"]

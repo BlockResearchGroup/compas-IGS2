@@ -1,7 +1,8 @@
 import os
 import json
 from compas.plugins import plugin
-from compas_ui.ui import UI
+
+# from compas_ui.ui import UI
 
 
 HERE = os.path.dirname(__file__)

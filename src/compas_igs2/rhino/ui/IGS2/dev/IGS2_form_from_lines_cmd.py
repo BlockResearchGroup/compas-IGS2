@@ -28,9 +28,7 @@ def RunCommand(is_interactive):
     graph = FormGraph.from_lines(lines)
 
     if not graph.is_planar_embedding():
-        compas_rhino.display_message(
-            "The graph is not planar. Therefore, a form diagram cannot be created."
-        )
+        compas_rhino.display_message("The graph is not planar. Therefore, a form diagram cannot be created.")
         return
 
     form = FormDiagram.from_graph(graph)
