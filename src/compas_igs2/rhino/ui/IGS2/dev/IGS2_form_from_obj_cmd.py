@@ -10,7 +10,6 @@ from compas_ui.rhino.forms import FileForm
 
 from compas_ags.diagrams import FormGraph
 from compas_ags.diagrams import FormDiagram
-from compas.datastructures import Mesh
 
 
 __commandname__ = "IGS2_form_from_obj"
@@ -56,7 +55,7 @@ def RunCommand(is_interactive):
     form = FormDiagram.from_graph(graph)
 
     # Add the form diagram to the scene.
-    ui.scene.add(form, name="Form")
+    ui.scene.add(form, name="FormDiagram")
     ui.scene.update()
     ui.record()
 
