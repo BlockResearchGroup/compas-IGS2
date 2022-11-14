@@ -20,45 +20,43 @@ def RunCommand(is_interactive):
 
     ui = UI()
 
-    if "IGS2_form_from_obj.dirname" not in ui.registry:
-        path = FileForm.open(ui.dirname or os.path.expanduser("~"))
-        if not path:
-            return
-    else:
+    # Get a starting directory for selecting files.
+    if "IGS2_form_from_obj.dirname" in ui.registry:
         dirname = ui.registry["IGS2_form_from_obj.dirname"]
-        path = FileForm.open(dirname or os.path.expanduser("~"))
-        if not path:
-            return
+    else:
+        dirname = ui.dirname
 
+    # Ask the user to select an OBJ file.
+    path = FileForm.open(dirname or os.path.expanduser("~"))
+    if not path:
+        return
+
+    # Process the provided path.
     dirname = os.path.dirname(path)
     basename = os.path.basename(path)
     _, ext = os.path.splitext(path)
 
+    # Store the directory name for later.
     ui.registry["IGS2_form_from_obj.dirname"] = dirname
 
-    if ext == ".obj":
-        mesh = Mesh.from_obj(path)
-    elif ext == ".off":
-        mesh = Mesh.from_off(path)
-    elif ext == ".ply":
-        mesh = Mesh.from_ply(path)
-    elif ext == ".json":
-        mesh = Mesh.from_json(path)
-    else:
-        raise NotImplementedError
+    # Notify the user if the input is not valid.
+    if ext != ".obj":
+        compas_rhino.display_message("")
 
-    mesh.name = basename
+    # Make a graph from the OBJ data.
+    graph = FormGraph.from_obj(path)
 
-    graph = FormGraph.from_obj()
-
+    # Inform the user if the input is not valid.
     if not graph.is_planar_embedding():
         compas_rhino.display_message(
             "The graph is not planar. Therefore, a form diagram cannot be created."
         )
         return
 
+    # Conver the graph to a form diagram.
     form = FormDiagram.from_graph(graph)
 
+    # Add the form diagram to the scene.
     ui.scene.add(form, name="Form")
     ui.scene.update()
     ui.record()

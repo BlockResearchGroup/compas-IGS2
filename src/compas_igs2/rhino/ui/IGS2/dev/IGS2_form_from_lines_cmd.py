@@ -18,23 +18,31 @@ def RunCommand(is_interactive):
 
     ui = UI()
 
+    # Select lines in the Rhino model view.
     guids = compas_rhino.select_lines(message="Select Form Diagram Lines")
     if not guids:
         return
 
+    # Hide the selected lines.
     compas_rhino.rs.HideObjects(guids)
 
+    # Get the pairs of points defining the lines.
     lines = compas_rhino.get_line_coordinates(guids)
+
+    # Convert the point pairs to a graph.
     graph = FormGraph.from_lines(lines)
 
+    # Inform the user if the input is not valid.
     if not graph.is_planar_embedding():
         compas_rhino.display_message(
             "The graph is not planar. Therefore, a form diagram cannot be created."
         )
         return
 
+    # Conver the graph to a form diagram.
     form = FormDiagram.from_graph(graph)
 
+    # Add the form diagram to the scene.
     ui.scene.add(form, name="Form")
     ui.scene.update()
     ui.record()
