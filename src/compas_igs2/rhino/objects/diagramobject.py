@@ -14,6 +14,7 @@ from __future__ import division
 
 from compas_ui.rhino.objects import RhinoMeshObject
 from compas_igs2.objects import DiagramObject
+
 # from compas_igs2.rhino.conduits import ForceDiagramVertexInspector
 
 

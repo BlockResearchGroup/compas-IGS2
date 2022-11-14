@@ -10,6 +10,7 @@ from compas_ui.rhino.forms import FileForm
 
 from compas_ags.diagrams import FormGraph
 from compas_ags.diagrams import FormDiagram
+from compas.datastructures import Mesh
 
 
 __commandname__ = "IGS2_form_from_obj"
@@ -48,9 +49,7 @@ def RunCommand(is_interactive):
 
     # Inform the user if the input is not valid.
     if not graph.is_planar_embedding():
-        compas_rhino.display_message(
-            "The graph is not planar. Therefore, a form diagram cannot be created."
-        )
+        compas_rhino.display_message("The graph is not planar. Therefore, a form diagram cannot be created.")
         return
 
     # Conver the graph to a form diagram.

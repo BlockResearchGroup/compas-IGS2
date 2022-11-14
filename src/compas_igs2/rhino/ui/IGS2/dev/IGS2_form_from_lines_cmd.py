@@ -34,9 +34,7 @@ def RunCommand(is_interactive):
 
     # Inform the user if the input is not valid.
     if not graph.is_planar_embedding():
-        compas_rhino.display_message(
-            "The graph is not planar. Therefore, a form diagram cannot be created."
-        )
+        compas_rhino.display_message("The graph is not planar. Therefore, a form diagram cannot be created.")
         return
 
     # Conver the graph to a form diagram.

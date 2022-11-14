@@ -6,8 +6,4 @@ from .diagramobject import DiagramObject
 from .forceobject import ForceObject
 from .formobject import FormObject
 
-__all__ = [
-    "DiagramObject",
-    "ForceObject",
-    "FormObject"
-]
+__all__ = ["DiagramObject", "ForceObject", "FormObject"]
