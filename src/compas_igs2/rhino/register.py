@@ -1,11 +1,23 @@
 import os
-import json
 from compas.plugins import plugin
 
-# from compas_ui.ui import UI
-
+from compas_ui.values import Settings
+from compas_ui.values import BoolValue
+from compas_ui.values import IntValue
+from compas_ui.values import FloatValue
 
 HERE = os.path.dirname(__file__)
+
+SETTINGS = Settings(
+    {
+        # "solver.autorun": BoolValue(True),
+        # "solver.show_iterations": BoolValue(False),
+        # "solver.kmax": IntValue(100),
+        # "solver.damping": FloatValue(0.1),
+        # "solver.tol.residuals": FloatValue(1e-3),
+        # "solver.tol.displacements": FloatValue(1e-3),
+    }
+)
 
 
 @plugin(category="ui")
@@ -16,11 +28,4 @@ def register(ui):
     if not os.path.isdir(plugin_path):
         raise Exception("Cannot find the plugin: {}".format(plugin_path))
 
-    plugin_path = os.path.abspath(plugin_path)
-    plugin_dev = os.path.join(plugin_path, "dev")
-    plugin_config = os.path.join(plugin_dev, "config.json")
-
-    with open(plugin_config, "r") as f:
-        config = json.load(f)
-        settings = config["settings"]
-        ui.registry["IGS2"] = settings
+    ui.registry["IGS2"] = SETTINGS
