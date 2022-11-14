@@ -41,7 +41,7 @@ def RunCommand(is_interactive):
     form = FormDiagram.from_graph(graph)
 
     # Add the form diagram to the scene.
-    ui.scene.add(form, name="Form")
+    ui.scene.add(form, name="FormDiagram")
     ui.scene.update()
     ui.record()
 
