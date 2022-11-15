@@ -28,7 +28,7 @@ class RhinoFormObject(FormObject, RhinoDiagramObject):
         self._guid_force = dict(items)
 
     def clear(self):
-        super(FormObject, self).clear()
+        super(RhinoFormObject, self).clear()
         compas_rhino.delete_objects(self.guids, purge=True)
         self._guid_force = {}
 
