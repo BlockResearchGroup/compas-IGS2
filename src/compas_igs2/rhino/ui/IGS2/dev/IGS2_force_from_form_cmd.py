@@ -55,21 +55,14 @@ def RunCommand(is_interactive):
         )
         return
 
-    # # this should become part of the scene
-    # for guid in list(scene.objects.keys()):
-    #     obj = scene.objects[guid]
-    #     if obj.name == 'Force':
-    #         compas_rhino.rs.EnableRedraw(False)
-    #         try:
-    #             obj.clear()
-    #             del scene.objects[guid]
-    #         except Exception:
-    #             pass
-    #         compas_rhino.rs.EnableRedraw(True)
-    #         compas_rhino.rs.Redraw()
+    # Get the ForceDiagram from the scene
+    # and remove it.
+    for obj in ui.scene.get("ForceDiagram"):
+        ui.scene.remove(obj)
 
+    # Create a (new) ForceDiagram and add it.
     forcediagram = ForceDiagram.from_formdiagram(form.diagram)
-    force = ui.scene.add(forcediagram, name="ForceDiagram", layer="IGS::ForceDiagram")
+    force = ui.scene.add(forcediagram, name="ForceDiagram")
 
     # formdiagram = proxy.form_update_q_from_qind(form.diagram)
     # form.diagram.data = formdiagram.data
