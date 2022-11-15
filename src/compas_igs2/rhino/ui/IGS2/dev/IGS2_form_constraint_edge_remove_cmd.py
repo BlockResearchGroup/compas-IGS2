@@ -42,6 +42,7 @@ def RunCommand(is_interactive):
     for edge, attr in force.diagram.edges(True):
         attr["target_vector"] = None
 
+    # Update the scene and record
     ui.scene.update()
     ui.record()
 

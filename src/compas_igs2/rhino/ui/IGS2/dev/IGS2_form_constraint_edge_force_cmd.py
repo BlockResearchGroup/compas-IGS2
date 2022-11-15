@@ -32,6 +32,7 @@ def RunCommand(is_interactive):
     for edge in edges:
         form.diagram.edge_attribute(edge, "target_force", abs(forcemag))
 
+    # Update the scene and record
     ui.scene.update()
     ui.record()
 

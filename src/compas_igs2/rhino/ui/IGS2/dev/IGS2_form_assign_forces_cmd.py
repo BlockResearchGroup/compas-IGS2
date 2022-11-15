@@ -64,7 +64,7 @@ def RunCommand(is_interactive):
     form.settings["show.edgelabels"] = show_edgelabels
     form.settings["show.forcelabels"] = show_forcelabels
 
-    # Update te scene.
+    # Update the scene and record
     ui.scene.update()
     ui.record()
 

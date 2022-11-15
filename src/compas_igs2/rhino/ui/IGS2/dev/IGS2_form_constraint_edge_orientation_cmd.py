@@ -41,6 +41,7 @@ def RunCommand(is_interactive):
 
     force.diagram.constraints_from_dual()
 
+    # Update the scene and record
     ui.scene.update()
     ui.record()
 

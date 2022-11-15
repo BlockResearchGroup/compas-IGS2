@@ -135,6 +135,7 @@ def RunCommand(is_interactive):
     force.settings["show.edgelabels"] = force_show_edgelabels
     force.settings["show.constraints"] = force_show_constraints
 
+    # Update the scene and record
     ui.scene.update()
     ui.record()
 
