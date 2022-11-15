@@ -10,7 +10,7 @@ from compas_ags.diagrams import FormGraph
 from compas_ags.diagrams import FormDiagram
 
 
-__commandname__ = "IGS2_form_from_lines"
+__commandname__ = "IGS2_form_from_layer"
 
 
 @UI.error()
@@ -18,9 +18,15 @@ def RunCommand(is_interactive):
 
     ui = UI()
 
-    # Select lines in the Rhino model view.
-    guids = compas_rhino.select_lines(message="Select Form Diagram Lines")
+    # Ask the user to specify a layer.
+    layer = compas_rhino.rs.GetString("Type the name of the layer containing the input lines for the FormDiagram.")
+    if not layer:
+        return
+
+    # Get the lines on the layer.
+    guids = compas_rhino.get_lines(layer=layer)
     if not guids:
+        compas_rhino.display_message("The layer does not contain input lines.")
         return
 
     # Hide the selected lines.

@@ -3,42 +3,45 @@ from __future__ import absolute_import
 from __future__ import division
 
 from compas.colors import Color
+from compas_ui.values import Settings
+from compas_ui.values import StrValue
+from compas_ui.values import BoolValue
+from compas_ui.values import ColorValue
+from compas_ui.values import FloatValue
 from compas_igs2.objects import DiagramObject
 
 
 class ForceObject(DiagramObject):
     """Base object for representing a force diagram in a scene."""
 
-    SETTINGS = {
-        "layer": "forcediagram",
-        "show.vertices": True,
-        "show.edges": True,
-        "show.vertexlabels": False,
-        "show.edgelabels": False,
-        "show.forcelabels": False,
-        "show.forcecolors": True,
-        "show.constraints": True,
-        "color.vertices": Color.black(),
-        "color.vertexlabels": Color.white(),
-        "color.vertices:is_fixed": Color.red(),
-        "color.vertices:line_constraint": Color.white(),
-        "color.edges": Color.black(),
-        "color.edges:is_ind": Color.cyan(),
-        "color.edges:is_external": Color.green(),
-        "color.edges:is_reaction": Color.black(),
-        "color.edges:is_load": Color.green(),
-        "color.edges:target_force": Color.white(),
-        "color.edges:target_vector": Color.white(),
-        "color.faces": Color.grey().lightened(50),
-        "color.compression": Color.blue(),
-        "color.tension": Color.red(),
-        "rotate.90deg": False,
-        "tol.forces": 1e-3,
-    }
+    SETTINGS = Settings(
+        {
+            "layer": StrValue("forcediagram"),
+            "show.vertices": BoolValue(True),
+            "show.edges": BoolValue(True),
+            "show.vertexlabels": BoolValue(False),
+            "show.edgelabels": BoolValue(False),
+            "show.forcelabels": BoolValue(False),
+            "show.forcecolors": BoolValue(True),
+            "show.constraints": BoolValue(True),
+            "color.vertices": ColorValue(Color.black()),
+            "color.vertexlabels": ColorValue(Color.white()),
+            "color.vertices:is_fixed": ColorValue(Color.red()),
+            "color.vertices:line_constraint": ColorValue(Color.white()),
+            "color.edges": ColorValue(Color.black()),
+            "color.edges:is_ind": ColorValue(Color.cyan()),
+            "color.edges:is_external": ColorValue(Color.green()),
+            "color.edges:is_reaction": ColorValue(Color.black()),
+            "color.edges:is_load": ColorValue(Color.green()),
+            "color.edges:target_force": ColorValue(Color.white()),
+            "color.edges:target_vector": ColorValue(Color.white()),
+            "color.faces": ColorValue(Color.grey().lightened(50)),
+            "color.compression": ColorValue(Color.blue()),
+            "color.tension": ColorValue(Color.red()),
+            "rotate.90deg": BoolValue(False),
+            "tol.forces": FloatValue(1e-3),
+        }
+    )
 
-    def __init__(self, diagram, *args, **kwargs):
-        super(ForceObject, self).__init__(diagram, *args, **kwargs)
-        self.settings.update(ForceObject.SETTINGS)
-        settings = kwargs.get("settings") or {}
-        if settings:
-            self.settings.update(settings)
+    def __init__(self, *args, **kwargs):
+        super(ForceObject, self).__init__(*args, **kwargs)
