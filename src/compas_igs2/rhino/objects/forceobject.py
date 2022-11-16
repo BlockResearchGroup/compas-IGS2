@@ -6,6 +6,9 @@ from math import pi
 from compas_igs2.objects import ForceObject
 from compas_igs2.rhino.objects import RhinoDiagramObject
 
+from compas_igs2.utilities import compute_force_drawinglocation
+from compas_igs2.utilities import compute_force_drawingscale
+
 
 class RhinoForceObject(ForceObject, RhinoDiagramObject):
     """"""
@@ -41,10 +44,10 @@ class RhinoForceObject(ForceObject, RhinoDiagramObject):
 
         if self.settings["rotate.90deg"]:
             self.rotation = [0, 0, pi / 2]
-            self.location = self.settings["_location_90deg"]
+            self.location = self.location_90deg
         else:
             self.rotation = [0, 0, 0]
-            self.location = self.settings["_location_0deg"]
+            self.location = self.location_0deg
 
         self.artist.vertex_xyz = self.vertex_xyz
 
@@ -64,22 +67,21 @@ class RhinoForceObject(ForceObject, RhinoDiagramObject):
                     vertex_color[vertex] = self.settings["color.vertices:is_fixed"]
 
             guids = self.artist.draw_vertices(color=vertex_color)
+            self.guids += guids
             self.guid_vertex = zip(guids, vertices)
 
             # vertex labels
             if self.settings["show.vertexlabels"]:
                 vertex_text = {vertex: index for index, vertex in enumerate(vertices)}
-                vertex_color = {}
-                for vertex in vertices:
-                    vertex_color[vertex] = self.settings["color.vertexlabels"]
-                    if self.diagram.vertex_attribute(vertex, "is_fixed"):
-                        vertex_color[vertex] = self.settings["color.vertices:is_fixed"]
+                # vertex_color = {}
+                # for vertex in vertices:
+                #     vertex_color[vertex] = self.settings["color.vertexlabels"]
+                #     if self.diagram.vertex_attribute(vertex, "is_fixed"):
+                #         vertex_color[vertex] = self.settings["color.vertices:is_fixed"]
 
-                guids = self.artist.draw_vertexlabels(
-                    text=vertex_text,
-                    color=vertex_color,
-                )
-                self.guid_vertexlabel = zip(guids, vertices)
+                guids = self.artist.draw_vertexlabels(text=vertex_text)
+                self.guids += guids
+                # self.guid_vertexlabel = zip(guids, vertices)
 
         # edges
 
@@ -121,6 +123,7 @@ class RhinoForceObject(ForceObject, RhinoDiagramObject):
                     edge_color[edge] = self.settings["color.edges:target_vector"]
 
             guids = self.artist.draw_edges(edges=edges, color=edge_color)
+            self.guids += guids
             self.guid_edge = zip(guids, edges)
 
             self.guid_edgelabel = []
@@ -131,8 +134,9 @@ class RhinoForceObject(ForceObject, RhinoDiagramObject):
                 edge_index.update({(v, u): i for (u, v), i in edge_index.items()})
                 edge_text = {edge: edge_index[edge] for edge in edges}
 
-                guids = self.artist.draw_edgelabels(text=edge_text, color=edge_color)
-                self.guid_edgelabel += zip(guids, edges)
+                guids = self.artist.draw_edgelabels(text=edge_text)
+                self.guids += guids
+                # self.guid_edgelabel += zip(guids, edges)
 
             # edge constraints
             elif self.settings["show.constraints"]:
@@ -145,11 +149,9 @@ class RhinoForceObject(ForceObject, RhinoDiagramObject):
                         edges_target_force.append(edge)
 
                 if edges_target_force:
-                    guids = self.artist.draw_edgelabels(
-                        text=edge_text,
-                        color=edge_color,
-                    )
-                    self.guid_edgelabel += zip(guids, edges_target_force)
+                    guids = self.artist.draw_edgelabels(text=edge_text)
+                    self.guids += guids
+                    # self.guid_edgelabel += zip(guids, edges_target_force)
 
             # force labels
             elif self.settings["show.forcelabels"]:
@@ -158,8 +160,9 @@ class RhinoForceObject(ForceObject, RhinoDiagramObject):
                     f = self.diagram.dual_edge_force(edge)
                     edge_text[edge] = "{:.4g}kN".format(abs(f))
 
-                guids = self.artist.draw_edgelabels(text=edge_text, color=edge_color)
-                self.guid_edgelabel += zip(guids, edges)
+                guids = self.artist.draw_edgelabels(text=edge_text)
+                self.guids += guids
+                # self.guid_edgelabel += zip(guids, edges)
 
     def draw_highlight_edge(self, edge):
 
@@ -188,5 +191,6 @@ class RhinoForceObject(ForceObject, RhinoDiagramObject):
             elif f < -tol:
                 edge_color[edge] = self.settings["color.compression"]
 
-        guid_edgelabel = self.artist.draw_edgelabels(text=edge_text, color=edge_color)
-        self.guid_edgelabel = zip(guid_edgelabel, edge)
+        guids = self.artist.draw_edgelabels(text=edge_text, color=edge_color)
+        self.guids += guids
+        # self.guid_edgelabel = zip(guids, edge)
