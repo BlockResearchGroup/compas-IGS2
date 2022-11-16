@@ -17,13 +17,13 @@ def RunCommand(is_interactive):
     # Ask the user for the maximum deviation value.
     max_dev = compas_rhino.rs.GetReal(
         message="Assign threshold for maximum angle deviation",
-        number=ui.scene.settings["IGS2"]["max_deviation"],
+        number=ui.registry["IGS2"]["max_deviation"],
     )
     if not max_dev:
         return
 
     # Store in the settings
-    ui.scene.settings["IGS2"]["max_deviation"] = max_dev
+    ui.registry["IGS2"]["max_deviation"] = max_dev
 
     # Update the scene and record
     # ui.scene.update()

@@ -31,7 +31,7 @@ def RunCommand(is_interactive):
     force = objects[0]
 
     # Get the maximum deviation from the settings.
-    threshold = ui.scene.settings["IGS2"]["max_deviation"]
+    threshold = ui.registry["IGS2"]["max_deviation"]
 
     # Compute the angle deviations.
     compute_angle_deviations(form.diagram, force.diagram, tol_force=threshold)

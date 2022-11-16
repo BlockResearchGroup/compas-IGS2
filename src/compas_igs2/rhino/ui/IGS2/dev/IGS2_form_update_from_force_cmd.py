@@ -37,7 +37,7 @@ def RunCommand(is_interactive):
     force.diagram.data = forcediagram.data
 
     # Check equilibrium and deviations
-    threshold = ui.scene.settings["IGS2"]["max_deviation"]
+    threshold = ui.registry["IGS2"]["max_deviation"]
     compute_angle_deviations(form.diagram, force.diagram, tol_force=threshold)
     if not check_equilibrium(form.diagram, force.diagram, tol_angle=threshold, tol_force=threshold):
         compas_rhino.display_message(

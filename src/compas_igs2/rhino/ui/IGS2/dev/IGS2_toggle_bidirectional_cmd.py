@@ -21,11 +21,11 @@ def RunCommand(is_interactive):
     )
 
     if answer == "On":
-        ui.scene.settings["IGS2"]["bi-directional"] = True
+        ui.registry["IGS2"]["bi-directional"] = True
         compas_rhino.display_message("Bi-directional Form/Force: [On]")
 
     if answer == "Off":
-        ui.scene.settings["IGS2"]["bi-directional"] = False
+        ui.registry["IGS2"]["bi-directional"] = False
         compas_rhino.display_message("Bi-directional Form/Force: [Off]")
 
 

@@ -2,6 +2,7 @@ from __future__ import print_function
 from __future__ import absolute_import
 from __future__ import division
 
+import math
 import compas_rhino
 
 from compas_ui.ui import UI
@@ -77,21 +78,19 @@ def RunCommand(is_interactive):
     forcediagram = force_update_from_form(force.diagram, form.diagram)
     force.diagram.data = forcediagram.data
 
-    # # Compute the scale of the force diagram
-    # force.scale = compute_force_drawingscale(form, force)
+    # Compute the scale of the force diagram
+    force.scale = compute_force_drawingscale(form, force)
 
-    # # Compute and store the ideal location for the diagram at 0 degrees
-    # force.rotation = [0, 0, +math.pi / 2]
-    # location_90deg = compute_force_drawinglocation(form, force).copy()
-    # force.settings["_location_0deg"] = location_0deg
+    # Compute and store the ideal location for the diagram at 90 degrees
+    force.rotation = [0, 0, +math.pi / 2]
+    force.location_90deg = compute_force_drawinglocation(form, force).copy()
 
-    # # Compute and store the ideal location for the diagram at 0 degrees
-    # force.rotation = [0, 0, 0]
-    # location_0deg = compute_force_drawinglocation(form, force).copy()
-    # force.settings["_location_90deg"] = location_90deg
+    # Compute and store the ideal location for the diagram at 0 degrees
+    force.rotation = [0, 0, 0]
+    force.location_0deg = compute_force_drawinglocation(form, force).copy()
 
-    # # Compute the scale of the forces
-    # form.settings["scale.forces"] = compute_form_forcescale(form)
+    # Compute the scale of the forces
+    form.settings["scale.forces"] = compute_form_forcescale(form)
 
     # Update the scene.
     ui.scene.update()

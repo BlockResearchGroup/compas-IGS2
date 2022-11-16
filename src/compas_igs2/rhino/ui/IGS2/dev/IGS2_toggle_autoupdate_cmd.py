@@ -17,11 +17,11 @@ def RunCommand(is_interactive):
     answer = compas_rhino.rs.GetString("Autoupdate of Form/Force Diagram", "Cancel", ["On", "Off", "Cancel"])
 
     if answer == "On":
-        ui.scene.settings["IGS2"]["autoupdate"] = True
+        ui.registry["IGS2"]["autoupdate"] = True
         compas_rhino.display_message("Autoupdate Form/Force: [On]")
 
     if answer == "Off":
-        ui.scene.settings["IGS2"]["autoupdate"] = False
+        ui.registry["IGS2"]["autoupdate"] = False
         compas_rhino.display_message("Autoupdate Form/Force: [Off]")
 
 
