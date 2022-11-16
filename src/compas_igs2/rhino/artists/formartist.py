@@ -53,7 +53,7 @@ class RhinoFormArtist(FormArtist, RhinoDiagramArtist):
                 {
                     "start": vertex_xyz[edge[0]],
                     "end": vertex_xyz[edge[1]],
-                    "color": self.edge_color.get(edge, self.default_edgecolor),
+                    "color": self.edge_color.get(edge, self.default_edgecolor).rgb255,
                     "name": "{}.edge.{}-{}".format(self.diagram.name, *edge),
                     "arrow": arrow,
                 }
@@ -107,7 +107,7 @@ class RhinoFormArtist(FormArtist, RhinoDiagramArtist):
             pipes.append(
                 {
                     "points": [vertex_xyz[edge[0]], vertex_xyz[edge[1]]],
-                    "color": color,
+                    "color": color.rgb255,
                     "radius": radius,
                     "name": "{}.force.{}-{}".format(self.diagram.name, *edge),
                 }
