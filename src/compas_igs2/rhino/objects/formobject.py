@@ -11,26 +11,19 @@ from compas_igs2.rhino.objects import RhinoDiagramObject
 class RhinoFormObject(FormObject, RhinoDiagramObject):
     def __init__(self, *args, **kwargs):
         super(RhinoFormObject, self).__init__(*args, **kwargs)
-        self._guid_force = {}
+        # self._guid_force = {}
 
-    @property
-    def guids(self):
-        guids = super(FormObject, self).guids
-        guids += list(self.guid_force.keys())
-        return guids
+    # @property
+    # def guid_force(self):
+    #     return self._guid_force
 
-    @property
-    def guid_force(self):
-        return self._guid_force
+    # @guid_force.setter
+    # def guid_force(self, items):
+    #     self._guid_force = dict(items)
 
-    @guid_force.setter
-    def guid_force(self, items):
-        self._guid_force = dict(items)
-
-    def clear(self):
-        super(RhinoFormObject, self).clear()
-        compas_rhino.delete_objects(self.guids, purge=True)
-        self._guid_force = {}
+    # def clear(self):
+    #     super(RhinoFormObject, self).clear()
+    #     self._guid_force = {}
 
     # ==========================================================================
     # Draw
@@ -84,7 +77,15 @@ class RhinoFormObject(FormObject, RhinoDiagramObject):
             vertex_color.update({vertex: color_fixed for vertex in fixed})
 
             guids = self.artist.draw_vertices(color=vertex_color)
+            self.guids += guids
             self.guid_vertex = zip(guids, vertices)
+
+            # vertex labels
+            if self.settings["show.vertexlabels"]:
+                text = {vertex: index for index, vertex in enumerate(vertices)}
+                guids = self.artist.draw_vertexlabels(text=text)
+                self.guids += guids
+                self.guid_vertexlabel = zip(guids, vertices)
 
         # edges
         if self.settings["show.edges"]:
@@ -122,7 +123,49 @@ class RhinoFormObject(FormObject, RhinoDiagramObject):
                 edge_color.update({edge: color_constrained for edge in constrained})
 
             guids = self.artist.draw_edges(color=edge_color)
+            self.guids += guids
             self.guid_edge = zip(guids, edges)
+
+            # edge labels
+            if self.settings["show.edgelabels"]:
+                text = {edge: index for index, edge in enumerate(edges)}
+                guids = self.artist.draw_edgelabels(text=text)
+                self.guids += guids
+                # guid_edgelabel += zip(guids, edges)
+                # self.guid_edgelabel = guid_edgelabel
+
+            else:
+                text = {}
+                # force labels
+                if self.settings["show.forcelabels"]:
+                    for edge in self.diagram.edges_where({"is_external": True}):
+                        f = self.diagram.edge_attribute(edge, "f")
+                        if f != 0.0:
+                            text[edge] = "{:.3g}kN".format(abs(f))
+                # edge target force constraints
+                if self.settings["show.constraints"]:
+                    for edge in self.diagram.edges():
+                        target_force = self.diagram.edge_attribute(edge, "target_force")
+                        if target_force:
+                            if edge in list(text.keys()):
+                                f = self.diagram.edge_attribute(edge, "f")
+                            text[edge] = "{:.3g}kN".format(abs(target_force))
+                            # edge_color[edge] = self.settings["color.edges:target_force"]
+
+                guids = self.artist.draw_edgelabels(text=text)
+                self.guids += guids
+                # guid_edgelabel += zip(guids, edges_add_label)
+                # self.guid_edgelabel = guid_edgelabel
+
+        # force pipes
+        if self.settings["show.forcepipes"]:
+            guids = self.artist.draw_forcepipes(
+                color_compression=self.settings["color.compression"],
+                color_tension=self.settings["color.tension"],
+                scale=self.settings["scale.forces"],
+                tol=self.settings["tol.forces"],
+            )
+            self.guids += guids
 
     def draw_highlight_edge(self, edge):
         f = self.diagram.edge_attribute(edge, "f")
@@ -146,5 +189,6 @@ class RhinoFormObject(FormObject, RhinoDiagramObject):
             elif f < -tol:
                 color[edge] = self.settings["color.compression"]
 
-        guid_edgelabel = self.artist.draw_edgelabels(text=text, color=color)
-        self.guid_edgelabel = zip(guid_edgelabel, edge)
+        guids = self.artist.draw_edgelabels(text=text, color=color)
+        self.guids += guids
+        # self.guid_edgelabel = zip(guids, edge)
