@@ -54,14 +54,15 @@ def RunCommand(is_interactive):
     force.settings["show.edgelabels"] = False
     force.settings["show.constraints"] = True
 
-    # Update the scene
-    ui.scene.update()
-
     # Create an edge index map
     edge_index = form.diagram.edge_index()
 
     # Start an interaction loop
     while True:
+
+        # Update the scene
+        ui.scene.update()
+
         # Get an edge of the form diagram
         # and the corresponding edge of the force diagram.
         edge_form = form.select_edge("Select an edge of the Form Diagram to inspect constraints.")
@@ -119,8 +120,6 @@ def RunCommand(is_interactive):
             break
         if answer == "No":
             break
-        if answer == "Yes":
-            ui.scene.update()
 
     # Restore form viz settings
     form.settings["show.edges"] = form_show_edges
