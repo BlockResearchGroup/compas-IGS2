@@ -8,6 +8,9 @@ from compas_ui.ui import UI
 
 from compas_ags.diagrams import FormDiagram
 from compas_ags.diagrams import ForceDiagram
+from compas_igs2.utilities import compute_force_drawinglocation
+from compas_igs2.utilities import compute_force_drawingscale
+from compas_igs2.utilities import compute_form_forcescale
 
 
 __commandname__ = "IGS2_force_from_form"
@@ -64,25 +67,31 @@ def RunCommand(is_interactive):
     forcediagram = ForceDiagram.from_formdiagram(form.diagram)
     force = ui.scene.add(forcediagram, name="ForceDiagram")
 
-    # formdiagram = proxy.form_update_q_from_qind(form.diagram)
-    # form.diagram.data = formdiagram.data
+    # Update the form diagram
+    form_update_q_from_qind = ui.proxy.function("compas_ags.ags.graphstatics.form_update_q_from_qind")
+    formdiagram = form_update_q_from_qind(form.diagram)
+    form.diagram.data = formdiagram.data
 
-    # forcediagram = proxy.force_update_from_form(force.diagram, form.diagram)
-    # force.diagram.data = forcediagram.data
+    # Update the force diagram
+    force_update_from_form = ui.proxy.function("compas_ags.ags.graphstatics.force_update_from_form")
+    forcediagram = force_update_from_form(force.diagram, form.diagram)
+    force.diagram.data = forcediagram.data
 
+    # # Compute the scale of the force diagram
     # force.scale = compute_force_drawingscale(form, force)
 
-    # # compute and store the ideal location for the diagram at 0 and 90 degrees
-    # force.rotation = [0, 0, +math.pi/2]
+    # # Compute and store the ideal location for the diagram at 0 degrees
+    # force.rotation = [0, 0, +math.pi / 2]
     # location_90deg = compute_force_drawinglocation(form, force).copy()
+    # force.settings["_location_0deg"] = location_0deg
 
+    # # Compute and store the ideal location for the diagram at 0 degrees
     # force.rotation = [0, 0, 0]
     # location_0deg = compute_force_drawinglocation(form, force).copy()
+    # force.settings["_location_90deg"] = location_90deg
 
-    # force.settings['_location_0deg'] = location_0deg
-    # force.settings['_location_90deg'] = location_90deg
-
-    # form.settings['scale.forces'] = compute_form_forcescale(form)
+    # # Compute the scale of the forces
+    # form.settings["scale.forces"] = compute_form_forcescale(form)
 
     # Update the scene.
     ui.scene.update()
