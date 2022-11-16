@@ -59,7 +59,6 @@ def RunCommand(is_interactive):
 
             if ui.scene.settings["IGS2"]["autoupdate"]:
                 form_update_q_from_qind = ui.proxy.function("compas_ags.ags.graphstatics.form_update_q_from_qind")
-
                 formdiagram = form_update_q_from_qind(form.diagram)
                 form.diagram.data = formdiagram.data
 
