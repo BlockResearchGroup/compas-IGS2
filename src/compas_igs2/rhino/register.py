@@ -10,12 +10,9 @@ HERE = os.path.dirname(__file__)
 
 SETTINGS = Settings(
     {
-        # "solver.autorun": BoolValue(True),
-        # "solver.show_iterations": BoolValue(False),
-        # "solver.kmax": IntValue(100),
-        # "solver.damping": FloatValue(0.1),
-        # "solver.tol.residuals": FloatValue(1e-3),
-        # "solver.tol.displacements": FloatValue(1e-3),
+        "autoupdate": BoolValue(False),
+        "bi-directional": BoolValue(False),
+        "max_deviation": FloatValue(0.1),
     }
 )
 
