@@ -2,6 +2,7 @@ from __future__ import print_function
 from __future__ import absolute_import
 from __future__ import division
 
+import uuid
 from compas.colors import Color
 from compas_ui.values import Settings
 from compas_ui.values import StrValue
@@ -45,3 +46,38 @@ class ForceObject(DiagramObject):
 
     def __init__(self, *args, **kwargs):
         super(ForceObject, self).__init__(*args, **kwargs)
+        self.location_0deg = None
+        self.location_90deg = None
+
+    @property
+    def state(self):
+        return {
+            "guid": str(self.guid),
+            "name": self.name,
+            "item": str(self.item.guid),
+            "parent": str(self.parent.guid) if self.parent else None,
+            "settings": self.settings,
+            "artist": self.artist.state,
+            "visible": self.visible,
+            "anchor": self.anchor,
+            "location": self.location,
+            "scale": self.scale,
+            "rotation": self.rotation,
+            "location_0deg": self.location_0deg,
+            "location_90deg": self.location_90deg,
+        }
+
+    @state.setter
+    def state(self, state):
+        print('here')
+        self._guid = uuid.UUID(state["guid"])
+        self.name = state["name"]
+        self.settings.update(state["settings"])
+        self.artist.state = state["artist"]
+        self.visible = state["visible"]
+        self.anchor = state["anchor"]
+        self.location = state["location"]
+        self.scale = state["scale"]
+        self.rotation = state["rotation"]
+        self.location_0deg = state["location_0deg"]
+        self.location_90deg = state["location_90deg"]
