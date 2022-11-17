@@ -28,6 +28,22 @@ def RunCommand(is_interactive):
         return
     force = objects[0]
 
+    # # Turn on edge labels
+    # form_settings = form.settings.copy()
+    # force_settings = force.settings.copy()
+    # form.settings["show.edgelabels"] = True
+    # force.settings["show.edgelabels"] = True
+    # form.settings["show.constraints"] = False
+    # force.settings["show.constraints"] = False
+    # force.settings["show.forcepipes"] = False
+    # scene.update()
+
+    # AttributesForm.from_sceneNode(form, dual=force)
+
+    # # Revert to original setting
+    # form.settings = form_settings
+    # force.settings = force_settings
+
     # Update the scene and record
     ui.scene.update()
     ui.record()

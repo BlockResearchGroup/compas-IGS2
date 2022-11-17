@@ -1,6 +1,6 @@
 {
     "icons": {
-        "bitmap": "ags_toolbar.png",
+        "bitmap": "assets/IGS2_ui.png",
         "images": [
             "1_open",
             "2_save",

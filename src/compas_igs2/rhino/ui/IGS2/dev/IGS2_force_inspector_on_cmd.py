@@ -28,6 +28,7 @@ def RunCommand(is_interactive):
         return
     force = objects[0]
 
+    # Turn the foce inspector on
     force.inspector_on(form)
     compas_rhino.display_message("Force inspector: [ON]")
 
