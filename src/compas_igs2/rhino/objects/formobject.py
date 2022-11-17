@@ -6,24 +6,26 @@ import compas_rhino
 
 from compas_igs2.objects import FormObject
 from compas_igs2.rhino.objects import RhinoDiagramObject
+from compas_igs2.rhino.conduits import FormDiagramVertexInspector
 
 
 class RhinoFormObject(FormObject, RhinoDiagramObject):
     def __init__(self, *args, **kwargs):
         super(RhinoFormObject, self).__init__(*args, **kwargs)
-        # self._guid_force = {}
 
-    # @property
-    # def guid_force(self):
-    #     return self._guid_force
+    @property
+    def inspector(self):
+        if not self._inspector:
+            self._inspector = FormDiagramVertexInspector(self.diagram)
+        return self._inspector
 
-    # @guid_force.setter
-    # def guid_force(self, items):
-    #     self._guid_force = dict(items)
+    def inspector_on(self, form):
+        self.inspector.form_vertex_xyz = form.artist.vertex_xyz
+        self.inspector.force_vertex_xyz = self.artist.vertex_xyz
+        self.inspector.enable()
 
-    # def clear(self):
-    #     super(RhinoFormObject, self).clear()
-    #     self._guid_force = {}
+    def inspector_off(self):
+        self.inspector.disable()
 
     # ==========================================================================
     # Draw

@@ -2,40 +2,14 @@ from __future__ import print_function
 from __future__ import absolute_import
 from __future__ import division
 
-# import Rhino
-# from Rhino.Geometry import Point3d
-
-# import compas_rhino
-
-# from compas.geometry import scale_vector
-# from compas.geometry import add_vectors
-# from compas.geometry import subtract_vectors
-# from compas.geometry import rotate_points_xy
-
 from compas_ui.rhino.objects import RhinoMeshObject
 from compas_igs2.objects import DiagramObject
-
-# from compas_igs2.rhino.conduits import ForceDiagramVertexInspector
 
 
 class RhinoDiagramObject(DiagramObject, RhinoMeshObject):
     def __init__(self, *args, **kwargs):
         super(RhinoDiagramObject, self).__init__(*args, **kwargs)
         self._inspector = None
-
-    # @property
-    # def inspector(self):
-    #     if not self._inspector:
-    #         self._inspector = ForceDiagramVertexInspector(self.diagram)
-    #     return self._inspector
-
-    # def inspector_on(self, form):
-    #     self.inspector.form_vertex_xyz = form.artist.vertex_xyz
-    #     self.inspector.force_vertex_xyz = self.artist.vertex_xyz
-    #     self.inspector.enable()
-
-    # def inspector_off(self):
-    #     self.inspector.disable()
 
     # ==========================================================================
     # Methods
