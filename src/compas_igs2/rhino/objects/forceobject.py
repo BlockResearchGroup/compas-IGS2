@@ -54,12 +54,12 @@ class RhinoForceObject(ForceObject, RhinoDiagramObject):
         if not self.visible:
             return
 
-        if self.settings["rotate.90deg"]:
-            self.rotation = [0, 0, pi / 2]
-            self.location = self.location_90deg
-        else:
-            self.rotation = [0, 0, 0]
-            self.location = self.location_0deg
+        # if self.settings["rotate.90deg"]:
+        #     self.rotation = [0, 0, pi / 2]
+        #     self.location = self.location_90deg
+        # else:
+        #     self.rotation = [0, 0, 0]
+        #     self.location = self.location_0deg
 
         self.artist.vertex_xyz = self.vertex_xyz
 

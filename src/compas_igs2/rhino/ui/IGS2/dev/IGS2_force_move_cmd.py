@@ -30,10 +30,10 @@ def RunCommand(is_interactive):
 
     # Move the entire force diagram
     if force.move():
-        if force.settings["rotate.90deg"]:
-            force.location_90deg = force.location
-        else:
-            force.location_0deg = force.location
+        # if force.settings["rotate.90deg"]:
+        #     force.location_90deg = force.location
+        # else:
+        #     force.location_0deg = force.location
 
         ui.scene.update()
         ui.record()
