@@ -60,15 +60,7 @@ class FormDiagramVertexInspector(FormDiagramInspector):
 
     """
 
-    def __init__(
-        self,
-        form,
-        tol=0.1,
-        dotcolor=None,
-        textcolor=None,
-        linecolor=None,
-        **kwargs,
-    ):
+    def __init__(self, form, tol=0.1, dotcolor=None, textcolor=None, linecolor=None, **kwargs):
         super(FormDiagramVertexInspector, self).__init__(**kwargs)
         dotcolor = dotcolor or (255, 255, 0)
         textcolor = textcolor or (0, 0, 0)
