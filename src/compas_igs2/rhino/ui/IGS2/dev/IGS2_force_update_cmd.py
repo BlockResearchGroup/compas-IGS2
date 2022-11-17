@@ -28,6 +28,18 @@ def RunCommand(is_interactive):
         return
     force = objects[0]
 
+    # Create a proxy for compas_ags.ags.graphstatics.form_update_q_from_qind
+    form_update_q_from_qind = ui.proxy.function("compas_ags.ags.graphstatics.form_update_q_from_qind")
+
+    formdiagram = form_update_q_from_qind(form.diagram)
+    form.diagram.data = formdiagram.data
+
+    # Create a proxy for compas_ags.ags.graphstatics.force_update_from_form
+    force_update_from_form = ui.proxy.function("compas_ags.ags.graphstatics.force_update_from_form")
+
+    forcediagram = force_update_from_form(force.diagram, form.diagram)
+    force.diagram.data = forcediagram.data
+
     # Update the scene and record
     ui.scene.update()
     ui.record()
