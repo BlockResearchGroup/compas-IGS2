@@ -495,8 +495,7 @@ class AttributesForm(forms.Dialog[bool]):
 
         sub_layout = forms.DynamicLayout()
         sub_layout.Spacing = drawing.Size(5, 0)
-        # sub_layout.AddRow(None, self.ok, self.cancel, self.apply)
-        sub_layout.AddRow(None, self.cancel)
+        sub_layout.AddRow(None, self.close_button)
         layout.Items.Add(forms.StackLayoutItem(sub_layout))
 
         self.Content = layout
@@ -505,44 +504,12 @@ class AttributesForm(forms.Dialog[bool]):
         self.ClientSize = drawing.Size(400, 600)
 
     @property
-    def ok(self):
-        self.DefaultButton = forms.Button(Text='OK')
-        self.DefaultButton.Click += self.on_ok
+    def close_button(self):
+        self.DefaultButton = forms.Button(Text='Close')
+        self.DefaultButton.Click += self.on_close
         return self.DefaultButton
 
-    @property
-    def cancel(self):
-        # self.AbortButton = forms.Button(Text='Cancel')
-        self.AbortButton = forms.Button(Text='Close')
-        self.AbortButton.Click += self.on_cancel
-        return self.AbortButton
-
-    @property
-    def apply(self):
-        self.ApplyButton = forms.Button(Text='Apply')
-        self.ApplyButton.Click += self.on_apply
-        return self.ApplyButton
-
-    def on_ok(self, sender, event):
-        try:
-            for page in self.TabControl.Pages:
-                if hasattr(page, 'apply'):
-                    page.apply()
-            get_scene().update()
-        except Exception as e:
-            print(e)
-        self.Close()
-
-    def on_apply(self, sender, event):
-        try:
-            for page in self.TabControl.Pages:
-                if hasattr(page, 'apply'):
-                    page.apply()
-            get_scene().update()
-        except Exception as e:
-            print(e)
-
-    def on_cancel(self, sender, event):
+    def on_close(self, sender, event):
         self.Close()
 
 
