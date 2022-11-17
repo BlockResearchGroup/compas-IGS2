@@ -92,11 +92,15 @@ def RunCommand(is_interactive):
 
     # Compute and store the ideal location for the diagram at 90 degrees
     force.rotation = [0, 0, +math.pi / 2]
-    force.location_90deg = compute_force_drawinglocation(form, force).copy()
+    point = compute_force_drawinglocation(form, force).copy()
+    force.location_90deg = point
+    print(point)
 
     # Compute and store the ideal location for the diagram at 0 degrees
     force.rotation = [0, 0, 0]
-    force.location_0deg = compute_force_drawinglocation(form, force).copy()
+    point = compute_force_drawinglocation(form, force).copy()
+    force.location_0deg = point
+    print(point)
 
     # Compute the scale of the forces
     form.settings["scale.forces"] = compute_form_forcescale(form)
