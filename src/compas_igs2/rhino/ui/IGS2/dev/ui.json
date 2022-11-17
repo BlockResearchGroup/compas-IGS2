@@ -2,6 +2,7 @@
     "icons": {
         "bitmap": "assets/IGS2_ui.png",
         "images": [
+            "0_init",
             "1_open",
             "2_save",
             "3_form",
@@ -19,7 +20,10 @@
             "15_update_both",
             "16_inspect",
             "17_load_path",
-            "18_unified_diagram"
+            "18_unified_diagram",
+            "19_settings",
+            "20_redraw",
+            "21_clear"
         ]
     },
     "commands": [
