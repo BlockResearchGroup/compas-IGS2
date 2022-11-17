@@ -12,7 +12,7 @@ __commandname__ = "IGS2_docs"
 @UI.error()
 def RunCommand(is_interactive):
 
-    ui = UI()
+    ui = UI()  # noqa: F841
 
     webbrowser.open("https://blockresearchgroup.github.io/compas_ags/")
 

@@ -3,7 +3,6 @@ from compas.plugins import plugin
 
 from compas_ui.values import Settings
 from compas_ui.values import BoolValue
-from compas_ui.values import IntValue
 from compas_ui.values import FloatValue
 
 HERE = os.path.dirname(__file__)
@@ -44,7 +43,7 @@ def post_undo(ui):
                 index = 0
             else:
                 index = int(name.split(".")[-1]) + 1
-            if not index in pairs:
+            if index not in pairs:
                 pairs[index] = {"form": None, "force": None}
             pairs[index]["form"] = obj
 
@@ -55,7 +54,7 @@ def post_undo(ui):
                 index = 0
             else:
                 index = int(name.split(".")[-1]) + 1
-            if not index in pairs:
+            if index not in pairs:
                 pairs[index] = {"form": None, "force": None}
             pairs[index]["force"] = obj
 
@@ -86,7 +85,7 @@ def post_redo(ui):
                 index = 0
             else:
                 index = int(name.split(".")[-1]) + 1
-            if not index in pairs:
+            if index not in pairs:
                 pairs[index] = {"form": None, "force": None}
             pairs[index]["form"] = obj
 
@@ -97,7 +96,7 @@ def post_redo(ui):
                 index = 0
             else:
                 index = int(name.split(".")[-1]) + 1
-            if not index in pairs:
+            if index not in pairs:
                 pairs[index] = {"form": None, "force": None}
             pairs[index]["force"] = obj
 

@@ -33,7 +33,7 @@ def RunCommand(is_interactive):
 
     # Process the provided path.
     dirname = os.path.dirname(path)
-    basename = os.path.basename(path)
+    # basename = os.path.basename(path)
     _, ext = os.path.splitext(path)
 
     # Store the directory name for later.

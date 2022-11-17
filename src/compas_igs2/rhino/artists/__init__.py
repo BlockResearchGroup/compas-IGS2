@@ -9,7 +9,7 @@ from compas.artists import Artist
 from compas_ags.diagrams import FormDiagram
 from compas_ags.diagrams import ForceDiagram
 
-from .diagramartist import RhinoDiagramArtist
+from .diagramartist import RhinoDiagramArtist  # noqa: F401
 from .forceartist import RhinoForceArtist
 from .formartist import RhinoFormArtist
 

@@ -19,7 +19,7 @@ def RunCommand(is_interactive):
     if not objects:
         compas_rhino.display_message("There is no FormDiagram in the scene.")
         return
-    form = objects[0]
+    # form = objects[0]
 
     # Get the ForceDiagram from the scene
     objects = ui.scene.get("ForceDiagram")

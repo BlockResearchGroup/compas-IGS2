@@ -21,7 +21,7 @@ def RunCommand(is_interactive):
     if not objects:
         compas_rhino.display_message("There is no FormDiagram in the scene.")
         return
-    form = objects[0]
+    # form = objects[0]
 
     # Turn the inspector on or off based on user feedback
     answer = compas_rhino.rs.GetString("Force Polygons Inspector", "Cancel", ["On", "Off", "Cancel"])

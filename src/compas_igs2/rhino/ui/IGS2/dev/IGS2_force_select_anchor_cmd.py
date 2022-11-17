@@ -4,7 +4,8 @@ from __future__ import division
 
 import compas_rhino
 from compas_ui.ui import UI
-from compas.geometry import Point
+
+# from compas.geometry import Point
 
 
 __commandname__ = "IGS2_force_select_anchor"
@@ -20,7 +21,7 @@ def RunCommand(is_interactive):
     if not objects:
         compas_rhino.display_message("There is no FormDiagram in the scene.")
         return
-    form = objects[0]
+    # form = objects[0]
 
     # Get the ForceDiagram from the scene
     objects = ui.scene.get("ForceDiagram")
