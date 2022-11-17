@@ -25,15 +25,10 @@ def RunCommand(is_interactive):
     form_update_q_from_qind = ui.proxy.function("compas_ags.ags.graphstatics.form_update_q_from_qind")
 
     # Run compas_ags.ags.graphstatics.form_update_q_from_qind in the cloud.
-    result = form_update_q_from_qind(form.diagram)
-
-    # Let the user know if the execution failed.
-    if not result:
-        compas_rhino.display_message("Cloud execution of 'compas_ags.ags.graphstatics.form_update_q_from_qind' failed.")
-        return
+    formdiagram = form_update_q_from_qind(form.diagram)
 
     # Update the form diagram data.
-    form.diagram.data = result.data
+    form.diagram.data = formdiagram.data
 
     # Update the scene.
     ui.scene.update()
