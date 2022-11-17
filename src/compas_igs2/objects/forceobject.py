@@ -69,7 +69,6 @@ class ForceObject(DiagramObject):
 
     @state.setter
     def state(self, state):
-        print('here')
         self._guid = uuid.UUID(state["guid"])
         self.name = state["name"]
         self.settings.update(state["settings"])
