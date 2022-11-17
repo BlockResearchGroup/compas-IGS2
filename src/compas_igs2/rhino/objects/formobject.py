@@ -2,8 +2,6 @@ from __future__ import print_function
 from __future__ import absolute_import
 from __future__ import division
 
-import compas_rhino
-
 from compas_igs2.objects import FormObject
 from compas_igs2.rhino.objects import RhinoDiagramObject
 from compas_igs2.rhino.conduits import FormDiagramVertexInspector
@@ -133,8 +131,6 @@ class RhinoFormObject(FormObject, RhinoDiagramObject):
                 text = {edge: index for index, edge in enumerate(edges)}
                 guids = self.artist.draw_edgelabels(text=text)
                 self.guids += guids
-                # guid_edgelabel += zip(guids, edges)
-                # self.guid_edgelabel = guid_edgelabel
 
             else:
                 text = {}
@@ -156,8 +152,6 @@ class RhinoFormObject(FormObject, RhinoDiagramObject):
 
                 guids = self.artist.draw_edgelabels(text=text)
                 self.guids += guids
-                # guid_edgelabel += zip(guids, edges_add_label)
-                # self.guid_edgelabel = guid_edgelabel
 
         # force pipes
         if self.settings["show.forcepipes"]:
@@ -191,6 +185,5 @@ class RhinoFormObject(FormObject, RhinoDiagramObject):
             elif f < -tol:
                 color[edge] = self.settings["color.compression"]
 
-        guids = self.artist.draw_edgelabels(text=text, color=color)
+        guids = self.artist.draw_edgelabels(text=text)
         self.guids += guids
-        # self.guid_edgelabel = zip(guids, edge)

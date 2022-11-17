@@ -85,15 +85,8 @@ class RhinoForceObject(ForceObject, RhinoDiagramObject):
             # vertex labels
             if self.settings["show.vertexlabels"]:
                 vertex_text = {vertex: index for index, vertex in enumerate(vertices)}
-                # vertex_color = {}
-                # for vertex in vertices:
-                #     vertex_color[vertex] = self.settings["color.vertexlabels"]
-                #     if self.diagram.vertex_attribute(vertex, "is_fixed"):
-                #         vertex_color[vertex] = self.settings["color.vertices:is_fixed"]
-
                 guids = self.artist.draw_vertexlabels(text=vertex_text)
                 self.guids += guids
-                # self.guid_vertexlabel = zip(guids, vertices)
 
         # edges
 
@@ -148,7 +141,6 @@ class RhinoForceObject(ForceObject, RhinoDiagramObject):
 
                 guids = self.artist.draw_edgelabels(text=edge_text)
                 self.guids += guids
-                # self.guid_edgelabel += zip(guids, edges)
 
             # edge constraints
             elif self.settings["show.constraints"]:
@@ -163,7 +155,6 @@ class RhinoForceObject(ForceObject, RhinoDiagramObject):
                 if edges_target_force:
                     guids = self.artist.draw_edgelabels(text=edge_text)
                     self.guids += guids
-                    # self.guid_edgelabel += zip(guids, edges_target_force)
 
             # force labels
             elif self.settings["show.forcelabels"]:
@@ -174,10 +165,8 @@ class RhinoForceObject(ForceObject, RhinoDiagramObject):
 
                 guids = self.artist.draw_edgelabels(text=edge_text)
                 self.guids += guids
-                # self.guid_edgelabel += zip(guids, edges)
 
     def draw_highlight_edge(self, edge):
-
         if not self.diagram.has_edge(edge):
             edge = edge[1], edge[0]
 
@@ -203,6 +192,5 @@ class RhinoForceObject(ForceObject, RhinoDiagramObject):
             elif f < -tol:
                 edge_color[edge] = self.settings["color.compression"]
 
-        guids = self.artist.draw_edgelabels(text=edge_text, color=edge_color)
+        guids = self.artist.draw_edgelabels(text=edge_text)
         self.guids += guids
-        # self.guid_edgelabel = zip(guids, edge)
