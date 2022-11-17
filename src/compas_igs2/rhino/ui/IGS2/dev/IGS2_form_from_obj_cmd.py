@@ -63,6 +63,15 @@ def RunCommand(is_interactive):
                 index = int(name.split(".")[-1]) + 1
             obj.name = "FormDiagram.{}".format(index)
 
+    for obj in ui.scene.objects:
+        name = obj.name
+        if name.startswith("ForceDiagram"):
+            if name == "ForceDiagram":
+                index = 1
+            else:
+                index = int(name.split(".")[-1]) + 1
+            obj.name = "ForceDiagram.{}".format(index)
+
     # Add the form diagram to the scene.
     ui.scene.add(form, name="FormDiagram")
     ui.scene.update()

@@ -59,14 +59,14 @@ def RunCommand(is_interactive):
         )
         return
 
-    for obj in ui.scene.objects:
-        name = obj.name
-        if name.startswith("ForceDiagram"):
-            if name == "ForceDiagram":
-                index = 1
-            else:
-                index = int(name.split(".")[-1]) + 1
-            obj.name = "ForceDiagram.{}".format(index)
+    # for obj in ui.scene.objects:
+    #     name = obj.name
+    #     if name.startswith("ForceDiagram"):
+    #         if name == "ForceDiagram":
+    #             index = 1
+    #         else:
+    #             index = int(name.split(".")[-1]) + 1
+    #         obj.name = "ForceDiagram.{}".format(index)
 
     # Get the current ForceDiagram from the scene
     # and remove it.
@@ -90,17 +90,16 @@ def RunCommand(is_interactive):
     # Compute the scale of the force diagram
     force.scale = compute_force_drawingscale(form, force)
 
-    # Compute and store the ideal location for the diagram at 90 degrees
-    force.rotation = [0, 0, +math.pi / 2]
-    point = compute_force_drawinglocation(form, force).copy()
-    force.location_90deg = point
-    print(point)
+    # # Compute and store the ideal location for the diagram at 90 degrees
+    # force.rotation = [0, 0, +math.pi / 2]
+    # point = compute_force_drawinglocation(form, force).copy()
+    # force.location_90deg = point
+    # print(point)
 
     # Compute and store the ideal location for the diagram at 0 degrees
     force.rotation = [0, 0, 0]
     point = compute_force_drawinglocation(form, force).copy()
-    force.location_0deg = point
-    print(point)
+    force.location = point
 
     # Compute the scale of the forces
     form.settings["scale.forces"] = compute_form_forcescale(form)
