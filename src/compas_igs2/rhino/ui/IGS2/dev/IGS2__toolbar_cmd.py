@@ -90,7 +90,7 @@ def RunCommand(is_interactive):
     ]
 
     toolbar = ToolbarForm()
-    toolbar.setup(config, HERE, title="FormFinder")
+    toolbar.setup(config, HERE, title="IGS2")
     toolbar.Show()
 
 
