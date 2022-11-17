@@ -6,9 +6,9 @@ from compas.geometry import distance_point_point_xy
 
 
 __all__ = [
-    'compute_force_drawingscale',
-    'compute_force_drawinglocation',
-    'compute_form_forcescale',
+    "compute_force_drawingscale",
+    "compute_force_drawinglocation",
+    "compute_form_forcescale",
 ]
 
 
@@ -73,7 +73,7 @@ def compute_form_forcescale(form):
     scale: float
         Appropriate scale factor to thickness of form diagram lines.
     """
-    q = [abs(form.diagram.edge_attribute(uv, 'q')) for uv in form.diagram.edges_where({'is_external': False})]
+    q = [abs(form.diagram.edge_attribute(uv, "q")) for uv in form.diagram.edges_where({"is_external": False})]
 
     scale = 0.1 / max(q)
     return scale
@@ -83,5 +83,5 @@ def compute_form_forcescale(form):
 # Main
 # ==============================================================================
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pass

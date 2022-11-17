@@ -41,7 +41,7 @@ def RunCommand(is_interactive):
     form.settings["show.forcepipes"] = False
     ui.scene.update()
 
-    AttributesForm.from_sceneNode(form, dual=force, tabs=['Constraints'])
+    AttributesForm.from_sceneNode(form, dual=force, tabs=["Constraints"])
 
     # Revert to original setting
     for key, value in form_settings.items():

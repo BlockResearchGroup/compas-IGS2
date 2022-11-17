@@ -8,10 +8,10 @@ from compas.geometry import distance_point_point_xy
 
 
 __all__ = [
-    'compute_angle_deviations',
-    'check_form_angle_deviations',
-    'check_force_length_constraints',
-    'check_equilibrium',
+    "compute_angle_deviations",
+    "check_form_angle_deviations",
+    "check_force_length_constraints",
+    "check_equilibrium",
 ]
 
 
@@ -45,7 +45,7 @@ def compute_angle_deviations(form, force, tol_force=0.05):
         a = min(a, 180 - a)
         if distance_point_point_xy(_pt0, _pt1) < tol_force:
             a = 0.0  # exclude edges with zero-force
-        form.edge_attribute(edges_form[i], 'a', a)
+        form.edge_attribute(edges_form[i], "a", a)
 
     return
 
@@ -71,7 +71,7 @@ def check_form_angle_deviations(form, tol_angle=0.5):
 
     checked = True
 
-    deviations = form.edges_attribute('a')
+    deviations = form.edges_attribute("a")
     max_deviation = max(deviations)
     if max_deviation > tol_angle:
         checked = False

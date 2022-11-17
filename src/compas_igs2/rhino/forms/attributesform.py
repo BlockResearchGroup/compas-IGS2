@@ -43,25 +43,33 @@ class Tree_Table(forms.TreeGridView):
             general_setting_key = "color.%s" % table_type
 
             if getattr(sceneNode.diagram, table_type):
-                color.update({str(key): settings.get(general_setting_key) for key in getattr(sceneNode.diagram, table_type)()})
+                color.update(
+                    {str(key): settings.get(general_setting_key) for key in getattr(sceneNode.diagram, table_type)()}
+                )
 
             # gather and update subsettings
             for full_setting_key in settings.keys():
                 sub_setting_str = full_setting_key.split(":")
                 if len(sub_setting_str) > 1 and sub_setting_str[0] == general_setting_key:
                     sub_setting_key = sub_setting_str[-1]
-                    items_where = getattr(sceneNode.diagram, '%s_where' % table_type)
-                    color.update({str(key): settings.get(full_setting_key) for key in items_where({sub_setting_key: True})})
-                    color.update({str(key): settings.get(full_setting_key) for key in items_where({'_'+sub_setting_key: True})})  # including read-only ones
-                    color.update({str(key): settings.get("color.edges:is_ind") for key in items_where({"is_ind": True})})  # overwrite is_ind lastly
+                    items_where = getattr(sceneNode.diagram, "%s_where" % table_type)
+                    color.update(
+                        {str(key): settings.get(full_setting_key) for key in items_where({sub_setting_key: True})}
+                    )
+                    color.update(
+                        {str(key): settings.get(full_setting_key) for key in items_where({"_" + sub_setting_key: True})}
+                    )  # including read-only ones
+                    color.update(
+                        {str(key): settings.get("color.edges:is_ind") for key in items_where({"is_ind": True})}
+                    )  # overwrite is_ind lastly
 
             # Additional settings for IGS
             tol = 0.001
-            for edge in sceneNode.diagram.edges_where({'is_external': False}):
-                if sceneNode.diagram.edge_attribute(edge, 'f') > + tol:
-                    color[str(edge)] = settings['color.tension']
-                if sceneNode.diagram.edge_attribute(edge, 'f') < - tol:
-                    color[str(edge)] = settings['color.compression']
+            for edge in sceneNode.diagram.edges_where({"is_external": False}):
+                if sceneNode.diagram.edge_attribute(edge, "f") > +tol:
+                    color[str(edge)] = settings["color.tension"]
+                if sceneNode.diagram.edge_attribute(edge, "f") < -tol:
+                    color[str(edge)] = settings["color.compression"]
 
         # def OnCellFormatting(sender, e):
         #     try:
@@ -87,9 +95,9 @@ class Tree_Table(forms.TreeGridView):
     @classmethod
     def create_force_table(cls, sceneNode, dual=[]):
         datastructure = sceneNode.diagram
-        table = cls(sceneNode=sceneNode, table_type='edges')
-        table.add_column('EdgeLabel')
-        table.add_column('Vertices')
+        table = cls(sceneNode=sceneNode, table_type="edges")
+        table.add_column("EdgeLabel")
+        table.add_column("Vertices")
 
         attributes = list(datastructure.default_edge_attributes.keys())
         attributes = table.sort_attributes(attributes)
@@ -119,7 +127,7 @@ class Tree_Table(forms.TreeGridView):
             #     edge_item.Children.Add(vertex_item)
 
         table.DataStore = treecollection
-        table.Activated += table.SelectEvent(sceneNode, 'guid_edge', dual=dual)
+        table.Activated += table.SelectEvent(sceneNode, "guid_edge", dual=dual)
         table.ColumnHeaderClick += table.HeaderClickEvent()
         table.CellEdited += table.EditEvent()
         return table
@@ -127,9 +135,9 @@ class Tree_Table(forms.TreeGridView):
     @classmethod
     def create_constraint_edge_table(cls, sceneNode, dual=[]):
         datastructure = sceneNode.diagram
-        table = cls(sceneNode=sceneNode, table_type='edges')
-        table.add_column('EdgeLabel')
-        table.add_column('Vertices')
+        table = cls(sceneNode=sceneNode, table_type="edges")
+        table.add_column("EdgeLabel")
+        table.add_column("Vertices")
 
         attributes = list(datastructure.default_edge_attributes.keys())
         attributes = table.sort_attributes(attributes)
@@ -158,7 +166,7 @@ class Tree_Table(forms.TreeGridView):
             treecollection.Add(edge_item)
 
         table.DataStore = treecollection
-        table.Activated += table.SelectEvent(sceneNode, 'guid_edge', dual=dual)
+        table.Activated += table.SelectEvent(sceneNode, "guid_edge", dual=dual)
         table.ColumnHeaderClick += table.HeaderClickEvent()
         table.CellEdited += table.EditEvent()
         return table
@@ -166,8 +174,8 @@ class Tree_Table(forms.TreeGridView):
     @classmethod
     def create_constraint_formvertex_table(cls, sceneNode, dual=[]):
         datastructure = sceneNode.diagram
-        table = cls(sceneNode=sceneNode, table_type='vertices')
-        table.add_column('key')
+        table = cls(sceneNode=sceneNode, table_type="vertices")
+        table.add_column("key")
         attributes = list(datastructure.default_vertex_attributes.keys())
         attributes = table.sort_attributes(attributes)
 
@@ -175,7 +183,7 @@ class Tree_Table(forms.TreeGridView):
         attributes = filter(lambda attr: attr in Allowed, attributes)
 
         for attr in attributes:
-            editable = attr[0] != '_'
+            editable = attr[0] != "_"
             checkbox = type(datastructure.default_vertex_attributes[attr]) == bool
             if not editable:
                 attr = attr[1:]
@@ -187,7 +195,7 @@ class Tree_Table(forms.TreeGridView):
                 values.append(str(datastructure.vertex_attribute(key, attr)))
             treecollection.Add(forms.TreeGridItem(Values=tuple(values)))
         table.DataStore = treecollection
-        table.Activated += table.SelectEvent(sceneNode, 'guid_vertex')
+        table.Activated += table.SelectEvent(sceneNode, "guid_vertex")
         table.ColumnHeaderClick += table.HeaderClickEvent()
         table.CellEdited += table.EditEvent()
         return table
@@ -197,8 +205,8 @@ class Tree_Table(forms.TreeGridView):
         datastructure = dual.diagram
         print(datastructure)
         print(dual.diagram.name)
-        table = cls(sceneNode=dual, table_type='vertices')
-        table.add_column('key')
+        table = cls(sceneNode=dual, table_type="vertices")
+        table.add_column("key")
         attributes = list(datastructure.default_vertex_attributes.keys())
         attributes = table.sort_attributes(attributes)
 
@@ -206,7 +214,7 @@ class Tree_Table(forms.TreeGridView):
         attributes = filter(lambda attr: attr in Allowed, attributes)
 
         for attr in attributes:
-            editable = attr[0] != '_'
+            editable = attr[0] != "_"
             checkbox = type(datastructure.default_vertex_attributes[attr]) == bool
             if not editable:
                 attr = attr[1:]
@@ -218,7 +226,7 @@ class Tree_Table(forms.TreeGridView):
                 values.append(str(datastructure.vertex_attribute(key, attr)))
             treecollection.Add(forms.TreeGridItem(Values=tuple(values)))
         table.DataStore = treecollection
-        table.Activated += table.SelectEvent(sceneNode, 'guid_vertex')
+        table.Activated += table.SelectEvent(sceneNode, "guid_vertex")
         table.ColumnHeaderClick += table.HeaderClickEvent()
         table.CellEdited += table.EditEvent()
         return table
@@ -226,12 +234,12 @@ class Tree_Table(forms.TreeGridView):
     @classmethod
     def create_vertices_table(cls, sceneNode):
         datastructure = sceneNode.datastructure
-        table = cls(sceneNode=sceneNode, table_type='vertices')
-        table.add_column('key')
+        table = cls(sceneNode=sceneNode, table_type="vertices")
+        table.add_column("key")
         attributes = list(datastructure.default_vertex_attributes.keys())
         attributes = table.sort_attributes(attributes)
         for attr in attributes:
-            editable = attr[0] != '_'
+            editable = attr[0] != "_"
             checkbox = type(datastructure.default_vertex_attributes[attr]) == bool
             if not editable:
                 attr = attr[1:]
@@ -243,7 +251,7 @@ class Tree_Table(forms.TreeGridView):
                 values.append(str(datastructure.vertex_attribute(key, attr)))
             treecollection.Add(forms.TreeGridItem(Values=tuple(values)))
         table.DataStore = treecollection
-        table.Activated += table.SelectEvent(sceneNode, 'guid_vertex')
+        table.Activated += table.SelectEvent(sceneNode, "guid_vertex")
         table.ColumnHeaderClick += table.HeaderClickEvent()
         table.CellEdited += table.EditEvent()
         return table
@@ -251,13 +259,13 @@ class Tree_Table(forms.TreeGridView):
     @classmethod
     def create_edges_table(cls, sceneNode):
         datastructure = sceneNode.datastructure
-        table = cls(sceneNode=sceneNode, table_type='edges')
-        table.add_column('key')
+        table = cls(sceneNode=sceneNode, table_type="edges")
+        table.add_column("key")
         attributes = list(datastructure.default_edge_attributes.keys())
         attributes = table.sort_attributes(attributes)
 
         for attr in attributes:
-            editable = attr[0] != '_'
+            editable = attr[0] != "_"
             checkbox = type(datastructure.default_edge_attributes[attr]) == bool
             if not editable:
                 attr = attr[1:]
@@ -274,7 +282,7 @@ class Tree_Table(forms.TreeGridView):
                 vertex_item = forms.TreeGridItem(Values=(str(key),))
                 edge_item.Children.Add(vertex_item)
         table.DataStore = treecollection
-        table.Activated += table.SelectEvent(sceneNode, 'guid_edge', 'guid_vertex')
+        table.Activated += table.SelectEvent(sceneNode, "guid_edge", "guid_vertex")
         table.ColumnHeaderClick += table.HeaderClickEvent()
         table.CellEdited += table.EditEvent()
         return table
@@ -285,7 +293,7 @@ class Tree_Table(forms.TreeGridView):
 
         switch = len(sorted_attributes)
         for i, attr in enumerate(sorted_attributes):
-            if attr[0] != '_':
+            if attr[0] != "_":
                 switch = i
                 break
         sorted_attributes = sorted_attributes[switch:] + sorted_attributes[:switch]
@@ -335,15 +343,17 @@ class Tree_Table(forms.TreeGridView):
                 value = event.Item.Values[event.Column]
                 attr = self.Columns[event.Column].HeaderText
 
-                if self.table_type == 'vertices':
-                    get_set_attributes = getattr(self.sceneNode.datastructure, 'vertex_attribute')
-                if self.table_type == 'edges':
-                    get_set_attributes = getattr(self.sceneNode.datastructure, 'edge_attribute')
-                if self.table_type == 'faces':
-                    get_set_attributes = getattr(self.sceneNode.datastructure, 'face_attribute')
+                if self.table_type == "vertices":
+                    get_set_attributes = getattr(self.sceneNode.datastructure, "vertex_attribute")
+                if self.table_type == "edges":
+                    get_set_attributes = getattr(self.sceneNode.datastructure, "edge_attribute")
+                if self.table_type == "faces":
+                    get_set_attributes = getattr(self.sceneNode.datastructure, "face_attribute")
 
                 try:
-                    new_value = ast.literal_eval(str(value))  # checkboxes value type is bool, turn them into str first to be parsed back to bool
+                    new_value = ast.literal_eval(
+                        str(value)
+                    )  # checkboxes value type is bool, turn them into str first to be parsed back to bool
                 except Exception:
                     new_value = str(value)
 
@@ -359,16 +369,17 @@ class Tree_Table(forms.TreeGridView):
                     new_value = float(new_value)
                 if new_value != original_value:
                     if type(new_value) == type(original_value):
-                        print('will update key: %s, attr: %s, value: %s' % (key, attr, new_value))
+                        print("will update key: %s, attr: %s, value: %s" % (key, attr, new_value))
                         self.to_update[(key, attr)] = (get_set_attributes, new_value)
                     else:
-                        print('invalid value type, needs: %s, got %s instead' % (type(original_value), type(new_value)))
+                        print("invalid value type, needs: %s, got %s instead" % (type(original_value), type(new_value)))
                         event.Item.Values[event.Column] = original_value
                 else:
-                    print('value not changed from', original_value)
+                    print("value not changed from", original_value)
 
             except Exception as e:
                 print("cell edit failed:", type(e), e)
+
         return on_edited
 
     def HeaderClickEvent(self):
@@ -378,6 +389,7 @@ class Tree_Table(forms.TreeGridView):
                 sender.sort(event.Column.HeaderText)
             except Exception as e:
                 print(e)
+
         return on_hearderClick
 
     def add_column(self, HeaderText=None, Editable=False, checkbox=False):
@@ -421,7 +433,6 @@ class Tree_Table(forms.TreeGridView):
 
 
 class Tree_Tab(forms.TabPage):
-
     @classmethod
     def from_sceneNode(cls, sceneNode, tab_type, dual=None):
         tab = cls()
@@ -459,30 +470,29 @@ class Tree_Tab(forms.TabPage):
 
 
 class AttributesForm(forms.Dialog[bool]):
-
     @classmethod
-    def from_sceneNode(cls, sceneNode, dual=None, tabs=['Edges']):
+    def from_sceneNode(cls, sceneNode, dual=None, tabs=["Edges"]):
         attributesForm = cls()
         attributesForm.setup(sceneNode, dual=dual, tabs=tabs)
         Rhino.UI.EtoExtensions.ShowSemiModal(attributesForm, Rhino.RhinoDoc.ActiveDoc, Rhino.UI.RhinoEtoApp.MainWindow)
         return attributesForm
 
-    def setup(self, sceneNode, dual=None, tabs=['Edges']):
+    def setup(self, sceneNode, dual=None, tabs=["Edges"]):
         self.Title = "Attributes"
         self.sceneNode = sceneNode
 
         control = forms.TabControl()
         control.TabPosition = forms.DockPosition.Top
 
-        if 'Edges' in tabs:
-            tab = Tree_Tab.from_sceneNode(sceneNode, 'Edges', dual=dual)
+        if "Edges" in tabs:
+            tab = Tree_Tab.from_sceneNode(sceneNode, "Edges", dual=dual)
             control.Pages.Add(tab)
-        if 'Constraints' in tabs:
-            tab = Tree_Tab.from_edgeconstraints(sceneNode, 'EdgeConstraint', dual=dual)
+        if "Constraints" in tabs:
+            tab = Tree_Tab.from_edgeconstraints(sceneNode, "EdgeConstraint", dual=dual)
             control.Pages.Add(tab)
-            tab = Tree_Tab.from_vertexconstraints(sceneNode, 'FormVertexConstraint', dual=dual)
+            tab = Tree_Tab.from_vertexconstraints(sceneNode, "FormVertexConstraint", dual=dual)
             control.Pages.Add(tab)
-            tab = Tree_Tab.from_dualvertexconstraints(sceneNode, 'ForceVertexConstraint', dual=dual)
+            tab = Tree_Tab.from_dualvertexconstraints(sceneNode, "ForceVertexConstraint", dual=dual)
             control.Pages.Add(tab)
 
         self.TabControl = control
@@ -505,7 +515,7 @@ class AttributesForm(forms.Dialog[bool]):
 
     @property
     def close_button(self):
-        self.DefaultButton = forms.Button(Text='Close')
+        self.DefaultButton = forms.Button(Text="Close")
         self.DefaultButton.Click += self.on_close
         return self.DefaultButton
 
@@ -518,4 +528,4 @@ if __name__ == "__main__":
     scene = get_scene()
     form = scene.get("FormDiagram")[0]
     force = scene.get("ForceDiagram")[0]
-    AttributesForm.from_sceneNode(form, dual=force, tabs=['Constraints'])
+    AttributesForm.from_sceneNode(form, dual=force, tabs=["Constraints"])
