@@ -5,9 +5,7 @@ from __future__ import division
 from math import pi
 from compas_igs2.objects import ForceObject
 from compas_igs2.rhino.objects import RhinoDiagramObject
-
-from compas_igs2.utilities import compute_force_drawinglocation
-from compas_igs2.utilities import compute_force_drawingscale
+from compas_igs2.rhino.conduits import ForceDiagramVertexInspector
 
 
 class RhinoForceObject(ForceObject, RhinoDiagramObject):
@@ -15,6 +13,20 @@ class RhinoForceObject(ForceObject, RhinoDiagramObject):
 
     def __init__(self, *args, **kwargs):
         super(RhinoForceObject, self).__init__(*args, **kwargs)
+
+    @property
+    def inspector(self):
+        if not self._inspector:
+            self._inspector = ForceDiagramVertexInspector(self.diagram)
+        return self._inspector
+
+    def inspector_on(self, form):
+        self.inspector.form_vertex_xyz = form.artist.vertex_xyz
+        self.inspector.force_vertex_xyz = self.artist.vertex_xyz
+        self.inspector.enable()
+
+    def inspector_off(self):
+        self.inspector.disable()
 
     # ==========================================================================
     # Draw
