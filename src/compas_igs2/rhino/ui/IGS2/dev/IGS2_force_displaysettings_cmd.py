@@ -28,6 +28,49 @@ def RunCommand(is_interactive):
         return
     force = objects[0]
 
+    # Define the options
+    options = ["VertexLabels", "EdgeLabels", "ForceLabels", "CompressionTension", "Constraints"]
+
+    # Start an interactivce loop
+    while True:
+        option = compas_rhino.rs.GetString("FormDiagram Display", strings=options)
+        if not option:
+            break
+
+        if option == "VertexLabels":
+            if force.settings["show.vertexlabels"] is True:
+                force.settings["show.vertexlabels"] = False
+            else:
+                force.settings["show.vertexlabels"] = True
+
+        elif option == "EdgeLabels":
+            if force.settings["show.edgelabels"] is True:
+                force.settings["show.edgelabels"] = False
+            else:
+                force.settings["show.edgelabels"] = True
+                force.settings["show.forcelabels"] = False
+
+        elif option == "ForceLabels":
+            if force.settings["show.forcelabels"] is True:
+                force.settings["show.forcelabels"] = False
+            else:
+                force.settings["show.forcelabels"] = True
+                force.settings["show.edgelabels"] = False
+
+        elif option == "CompressionTension":
+            if force.settings["show.forcecolors"] is True:
+                force.settings["show.forcecolors"] = False
+            else:
+                force.settings["show.forcecolors"] = True
+
+        elif option == "Constraints":
+            if force.settings["show.constraints"] is True:
+                force.settings["show.constraints"] = False
+            else:
+                force.settings["show.constraints"] = True
+
+        ui.scene.update()
+
     # Update the scene and record
     ui.scene.update()
     ui.record()
