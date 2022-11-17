@@ -46,6 +46,15 @@ def RunCommand(is_interactive):
     # Conver the graph to a form diagram.
     form = FormDiagram.from_graph(graph)
 
+    for obj in ui.scene.objects:
+        name = obj.name
+        if name.startswith("FormDiagram"):
+            if name == "FormDiagram":
+                index = 1
+            else:
+                index = int(name.split(".")[-1]) + 1
+            obj.name = "FormDiagram.{}".format(index)
+
     # Add the form diagram to the scene.
     ui.scene.add(form, name="FormDiagram")
     ui.scene.update()
