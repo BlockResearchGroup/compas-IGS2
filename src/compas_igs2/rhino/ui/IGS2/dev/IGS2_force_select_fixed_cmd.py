@@ -28,6 +28,16 @@ def RunCommand(is_interactive):
         return
     force = objects[0]
 
+    # Unfix all vertices
+    force.diagram.vertices_attribute("is_fixed", False)
+    ui.scene.update()
+
+    # Select the vertices to fix
+    vertices = force.select_vertices("Fix selected vertices (unfix all others)")
+    if not vertices:
+        return
+    force.diagram.vertices_attribute("is_fixed", True, keys=vertices)
+
     # Update the scene and record
     ui.scene.update()
     ui.record()
