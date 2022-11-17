@@ -28,9 +28,9 @@ def RunCommand(is_interactive):
         return
     force = objects[0]
 
-    # Update the scene and record
-    ui.scene.update()
-    ui.record()
+    # Turn the foce inspector off
+    force.inspector_off()
+    compas_rhino.display_message("Force inspector: [OFF]")
 
 
 if __name__ == "__main__":

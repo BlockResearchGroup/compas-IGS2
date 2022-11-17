@@ -28,9 +28,8 @@ def RunCommand(is_interactive):
         return
     force = objects[0]
 
-    # Update the scene and record
-    ui.scene.update()
-    ui.record()
+    force.inspector_on(form)
+    compas_rhino.display_message("Force inspector: [ON]")
 
 
 if __name__ == "__main__":

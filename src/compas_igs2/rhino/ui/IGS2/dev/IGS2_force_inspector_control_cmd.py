@@ -5,6 +5,9 @@ from __future__ import division
 import compas_rhino
 from compas_ui.ui import UI
 
+import IGS2_force_inspector_on_cmd
+import IGS2_force_inspector_off_cmd
+
 
 __commandname__ = "IGS2_force_inspector_control"
 
@@ -28,9 +31,16 @@ def RunCommand(is_interactive):
         return
     force = objects[0]
 
-    # Update the scene and record
-    ui.scene.update()
-    ui.record()
+    # Ask to turn the inspector on or off
+    answer = compas_rhino.rs.GetString(
+        "Force Dual Inspector",
+        "Cancel",
+        ["On", "Off", "Cancel"],
+    )
+    if answer == "On":
+        IGS2_force_inspector_on_cmd.RunCommand(True)
+    if answer == "Off":
+        IGS2_force_inspector_off_cmd.RunCommand(True)
 
 
 if __name__ == "__main__":
