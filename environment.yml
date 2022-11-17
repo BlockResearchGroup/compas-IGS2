@@ -9,6 +9,6 @@ dependencies:
    - compas>=1.17.3
    - pip:
      - compas_cloud
-     - compas_ui>=0.8.1
+     - compas_ui>=0.8.2
      - compas_ags>=1.2.0
      - compas_igs2>=0.2.0
