@@ -29,75 +29,95 @@ def RunCommand(is_interactive):
     force = objects[0]
 
     # scale = force.scale
-    # form_settings = form.settings.copy()
-    # force_settings = force.settings.copy()
-    # form.settings['show.edges'] = True
-    # form.settings['show.forcelabels'] = False
-    # form.settings['show.edgelabels'] = False
-    # form.settings['show.forcepipes'] = False
-    # force.settings['show.edges'] = True
-    # force.settings['show.forcelabels'] = False
-    # force.settings['show.edgelabels'] = False
-    # force.settings['show.constraints'] = False
-    # scene.update()
 
-    # curvefilter = compas_rhino.rs.filter.curve
+    # Update viz settings
+    form_settings = {k: form.settings.get(k) for k in form.settings.keys()}
+    force_settings = {k: force.settings.get(k) for k in force.settings.keys()}
+    form.settings["show.edges"] = True
+    form.settings["show.forcelabels"] = False
+    form.settings["show.edgelabels"] = False
+    form.settings["show.forcepipes"] = False
+    force.settings["show.edges"] = True
+    force.settings["show.forcelabels"] = False
+    force.settings["show.edgelabels"] = False
+    force.settings["show.constraints"] = False
 
-    # edge_index = form.diagram.edge_index()
+    # Create edge index map
+    edge_index = form.diagram.edge_index()
 
-    # while True:
-    #     guid = compas_rhino.rs.GetObject(message="Select an edge in Form or Force Diagrams", preselect=True, select=True, filter=curvefilter)
+    # Start interactive loop
+    while True:
+        ui.scene.update()
 
-    #     if not guid:
-    #         break
-    #     elif guid not in form.guid_edge and guid not in force.guid_edge:
-    #         compas_rhino.display_message("Edge does not belog to form or force diagram.")
-    #         break
+        # Ask to select an edge and break out of the loop if nothing is selected
+        guid = compas_rhino.rs.GetObject(
+            message="Select an edge in Form or Force Diagrams",
+            preselect=True,
+            select=True,
+            filter=compas_rhino.rs.filter.curve,
+        )
+        if not guid:
+            break
 
-    #     if guid in form.guid_edge:
-    #         edge_form = form.guid_edge[guid]
-    #         index = edge_index[edge_form]
-    #         edge_force = list(force.diagram.ordered_edges(form.diagram))[index]
-    #     if guid in force.guid_edge:
-    #         edge_force = force.guid_edge[guid]
-    #         edge_form = force.diagram.dual_edge(edge_force)
-    #         index = edge_index[edge_form]
+        # Break out of the loop if the selected object is not an edge
+        if guid not in form.guid_edge and guid not in force.guid_edge:
+            compas_rhino.display_message("Edge does not belog to form or force diagram.")
+            break
 
-    #     f = form.diagram.edge_attribute(edge_form, 'f')
-    #     l = abs(f * scale) # noqa E741
+        if guid in form.guid_edge:
+            edge_form = form.guid_edge[guid]
+            index = edge_index[edge_form]
+            edge_force = list(force.diagram.ordered_edges(form.diagram))[index]
 
-    #     tol = form.settings['tol.forces']
-    #     state = ''
-    #     if not form.diagram.edge_attribute(edge_form, 'is_external'):
-    #         if f > + tol:
-    #             state = 'in tension'
-    #         elif f < - tol:
-    #             state = 'in compression'
+        if guid in force.guid_edge:
+            edge_force = force.guid_edge[guid]
+            edge_form = force.diagram.dual_edge(edge_force)
+            index = edge_index[edge_form]
 
-    #     key2guid = {form.guid_edge[guid]: guid for guid in form.guid_edge}
-    #     key2guid.update({(v, u): key2guid[(u, v)] for u, v in key2guid})
-    #     find_object(key2guid[edge_form]).Select(True)
-    #     key2guid = {force.guid_edge[guid]: guid for guid in force.guid_edge}
-    #     key2guid.update({(v, u): key2guid[(u, v)] for u, v in key2guid})
-    #     if abs(f) > tol:
-    #         find_object(key2guid[edge_force]).Select(True)
+        f = form.diagram.edge_attribute(edge_form, "f")
+        l = abs(f * force.scale)  # noqa E741
 
-    #     form.draw_highlight_edge(edge_form)
-    #     force.draw_highlight_edge(edge_force)
+        tol = form.settings["tol.forces"]
+        state = ""
+        if not form.diagram.edge_attribute(edge_form, "is_external"):
+            if f > +tol:
+                state = "in tension"
+            elif f < -tol:
+                state = "in compression"
 
-    #     compas_rhino.display_message(
-    #         "Edge Index: {0}\nForce Diagram Edge Length: {1:.3g}\nForce Drawing Scale: {2:.3g}\nForce Magnitude: {3:.3g}kN {4}".format(index, l, scale, abs(f), state))
+        edge_guid = {form.guid_edge[guid]: guid for guid in form.guid_edge}
+        edge_guid.update({(v, u): edge_guid[(u, v)] for u, v in edge_guid})
+        compas_rhino.find_object(edge_guid[edge_form]).Select(True)
 
-    #     answer = compas_rhino.rs.GetString("Continue selecting edges?", "No", ["Yes", "No"])
-    #     if not answer:
-    #         break
-    #     if answer == "No":
-    #         break
-    #     if answer == 'Yes':
-    #         scene.update()
+        edge_guid = {force.guid_edge[guid]: guid for guid in force.guid_edge}
+        edge_guid.update({(v, u): edge_guid[(u, v)] for u, v in edge_guid})
+        if abs(f) > tol:
+            compas_rhino.find_object(edge_guid[edge_force]).Select(True)
 
-    # form.settings = form_settings
-    # force.settings = force_settings
+        form.draw_highlight_edge(edge_form)
+        force.draw_highlight_edge(edge_force)
+
+        compas_rhino.display_message(
+            "Edge Index: {0}\nForce Diagram Edge Length: {1:.3g}\nForce Drawing Scale: {2:.3g}\nForce Magnitude: {3:.3g}kN {4}".format(
+                index,
+                l,
+                force.scale,
+                abs(f),
+                state,
+            )
+        )
+
+        answer = compas_rhino.rs.GetString("Continue selecting edges?", "No", ["Yes", "No"])
+        if not answer:
+            break
+        if answer == "No":
+            break
+
+    # Revert to original setting
+    for key, value in form_settings.items():
+        form.settings[key] = value
+    for key, value in force_settings.items():
+        force.settings[key] = value
 
     # Update the scene and record
     ui.scene.update()
