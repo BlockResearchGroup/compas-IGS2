@@ -28,7 +28,7 @@
     },
     "commands": [
         {
-            "name": "IGS2_toolbar_form",
+            "name": "IGS2__toolbar_form",
             "menu_text": "Create FormDiagram",
             "icon": 3,
             "tooltip": "Create FormDiagram"
@@ -52,7 +52,7 @@
             "tooltip": "Identify anchors"
         },
         {
-            "name": "IGS2_toolbar_form_assign_forces",
+            "name": "IGS2__toolbar_form_assign_forces",
             "menu_text": "Select and assign forces",
             "icon": 5,
             "tooltip": "Assign forces"
@@ -108,7 +108,7 @@
             "tooltip": "Assign default constraints"
         },
         {
-            "name": "IGS2_toolbar_form_constraints_vertex",
+            "name": "IGS2__toolbar_form_constraints_vertex",
             "menu_text": "Assign vertex constraints",
             "icon": 13,
             "tooltip": "Assign vertex constraints"
@@ -134,7 +134,7 @@
             "tooltip": "Inspect constraints"
         },
         {
-            "name": "IGS2_toolbar_form_constraints_edge",
+            "name": "IGS2__toolbar_form_constraints_edge",
             "menu_text": "Assign edge Constraints",
             "icon": 14,
             "tooltip": "Assign edge constraints"
@@ -171,7 +171,7 @@
             "tooltip": "Check Equilibrium"
         },
         {
-            "name": "IGS2_toolbar_inspector",
+            "name": "IGS2__toolbar_inspector",
             "menu_text": "Inspect diagrams",
             "icon": 16,
             "tooltip": "Inspect Diagrams"
@@ -390,7 +390,7 @@
             "name": "IGS2",
             "items": [
                 {
-                    "left": "IGS2_toolbar_form"
+                    "left": "IGS2__toolbar_form"
                 },
                 {
                     "type": "separator"
@@ -399,7 +399,7 @@
                     "left": "IGS2_form_select_fixed"
                 },
                 {
-                    "left": "IGS2_toolbar_form_assign_forces"
+                    "left": "IGS2__toolbar_form_assign_forces"
                 },
                 {
                     "left": "IGS2_form_check_dof"
@@ -435,10 +435,10 @@
                     "left": "IGS2_form_default_constraints"
                 },
                 {
-                    "left": "IGS2_toolbar_form_constraints_vertex"
+                    "left": "IGS2__toolbar_form_constraints_vertex"
                 },
                 {
-                    "left": "IGS2_toolbar_form_constraints_edge"
+                    "left": "IGS2__toolbar_form_constraints_edge"
                 },
                 {
                     "left": "IGS2_update_both"
@@ -447,7 +447,7 @@
                     "type": "separator"
                 },
                 {
-                    "left": "IGS2_toolbar_inspector"
+                    "left": "IGS2__toolbar_inspector"
                 },
                 {
                     "left": "IGS2_form_compute_loadpath"
