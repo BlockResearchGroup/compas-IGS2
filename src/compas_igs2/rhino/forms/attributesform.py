@@ -63,26 +63,26 @@ class Tree_Table(forms.TreeGridView):
                 if sceneNode.diagram.edge_attribute(edge, 'f') < - tol:
                     color[str(edge)] = settings['color.compression']
 
-        def OnCellFormatting(sender, e):
-            try:
-                attr = e.Column.HeaderText
+        # def OnCellFormatting(sender, e):
+        #     try:
+        #         attr = e.Column.HeaderText
 
-                # if not e.Column.Editable and attr != 'key':
-                #     e.ForegroundColor = drawing.Colors.DarkGray
+        #         # if not e.Column.Editable and attr != 'key':
+        #         #     e.ForegroundColor = drawing.Colors.DarkGray
 
-                if attr == 'EdgeLabel':
-                    key = e.Item.Values[1]
-                    if key in color:
-                        rgb = color[key]
-                        rgb = [c/255. for c in rgb]
-                        e.BackgroundColor = drawing.Color(*rgb)
-                        if sum(rgb) < 1.5:
-                            e.ForegroundColor = drawing.Colors.White
+        #         if attr == 'EdgeLabel':
+        #             key = e.Item.Values[1]
+        #             if key in color:
+        #                 rgb = color[key]
+        #                 rgb = [c/255. for c in rgb]
+        #                 e.BackgroundColor = drawing.Color(*rgb)
+        #                 if sum(rgb) < 1.5:
+        #                     e.ForegroundColor = drawing.Colors.White
 
-            except Exception as exc:
-                print('formating error', exc)
+        #     except Exception as exc:
+        #         print('formating error', exc)
 
-        self.CellFormatting += OnCellFormatting
+        # self.CellFormatting += OnCellFormatting
 
     @classmethod
     def create_force_table(cls, sceneNode, dual=[]):
