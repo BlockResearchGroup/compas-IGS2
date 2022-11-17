@@ -64,19 +64,23 @@ def RunCommand(is_interactive):
             compas_rhino.display_message("Edge does not belog to form or force diagram.")
             break
 
+        # Find the edge in the form diagram
         if guid in form.guid_edge:
             edge_form = form.guid_edge[guid]
             index = edge_index[edge_form]
             edge_force = list(force.diagram.ordered_edges(form.diagram))[index]
 
+        # Find the edge in the force diagram
         if guid in force.guid_edge:
             edge_force = force.guid_edge[guid]
             edge_form = force.diagram.dual_edge(edge_force)
             index = edge_index[edge_form]
 
+        # Force and length
         f = form.diagram.edge_attribute(edge_form, "f")
         l = abs(f * force.scale)  # noqa E741
 
+        # Tension or compression?
         tol = form.settings["tol.forces"]
         state = ""
         if not form.diagram.edge_attribute(edge_form, "is_external"):
@@ -85,18 +89,22 @@ def RunCommand(is_interactive):
             elif f < -tol:
                 state = "in compression"
 
+        # Mark form edge as selected
         edge_guid = {form.guid_edge[guid]: guid for guid in form.guid_edge}
         edge_guid.update({(v, u): edge_guid[(u, v)] for u, v in edge_guid})
         compas_rhino.find_object(edge_guid[edge_form]).Select(True)
 
+        # Mark force edge as selected
         edge_guid = {force.guid_edge[guid]: guid for guid in force.guid_edge}
         edge_guid.update({(v, u): edge_guid[(u, v)] for u, v in edge_guid})
         if abs(f) > tol:
             compas_rhino.find_object(edge_guid[edge_force]).Select(True)
 
+        # Highlight edges
         form.draw_highlight_edge(edge_form)
         force.draw_highlight_edge(edge_force)
 
+        # Inform the user
         compas_rhino.display_message(
             "Edge Index: {0}\nForce Diagram Edge Length: {1:.3g}\nForce Drawing Scale: {2:.3g}\nForce Magnitude: {3:.3g}kN {4}".format(
                 index,
@@ -107,6 +115,7 @@ def RunCommand(is_interactive):
             )
         )
 
+        # Ask to continue
         answer = compas_rhino.rs.GetString("Continue selecting edges?", "No", ["Yes", "No"])
         if not answer:
             break
