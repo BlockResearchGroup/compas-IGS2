@@ -59,7 +59,16 @@ def RunCommand(is_interactive):
         )
         return
 
-    # Get the ForceDiagram from the scene
+    for obj in ui.scene.objects:
+        name = obj.name
+        if name.startswith("ForceDiagram"):
+            if name == "ForceDiagram":
+                index = 1
+            else:
+                index = int(name.split(".")[-1]) + 1
+            obj.name = "ForceDiagram.{}".format(index)
+
+    # Get the current ForceDiagram from the scene
     # and remove it.
     for obj in ui.scene.get("ForceDiagram"):
         ui.scene.remove(obj)
