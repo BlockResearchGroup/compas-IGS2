@@ -5,15 +5,9 @@ channels:
 dependencies:
    - python=3.9
    - pip
-   - git
-   - compas>=1.17.1
-   - compas_cgal>=0.5.0
-   - compas_occ>=0.7.0
-   - compas_view2>=0.9.0
    - python-planarity
+   - compas>=1.17.3
    - pip:
-     - black
-     - qt-material
      - compas_cloud
      - compas_ui
      - compas_ags
