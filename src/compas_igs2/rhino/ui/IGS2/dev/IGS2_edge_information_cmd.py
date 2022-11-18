@@ -77,16 +77,16 @@ def RunCommand(is_interactive):
             index = edge_index[edge_form]
 
         # Force and length
-        f = form.diagram.edge_attribute(edge_form, "f")
-        l = abs(f * force.scale)  # noqa E741
+        F = form.diagram.edge_attribute(edge_form, "f")
+        L = abs(F * force.scale)
 
         # Tension or compression?
         tol = form.settings["tol.forces"]
         state = ""
         if not form.diagram.edge_attribute(edge_form, "is_external"):
-            if f > +tol:
+            if F > +tol:
                 state = "in tension"
-            elif f < -tol:
+            elif F < -tol:
                 state = "in compression"
 
         # Mark form edge as selected
@@ -97,7 +97,7 @@ def RunCommand(is_interactive):
         # Mark force edge as selected
         edge_guid = {force.guid_edge[guid]: guid for guid in force.guid_edge}
         edge_guid.update({(v, u): edge_guid[(u, v)] for u, v in edge_guid})
-        if abs(f) > tol:
+        if abs(F) > tol:
             compas_rhino.find_object(edge_guid[edge_force]).Select(True)
 
         # Highlight edges
@@ -108,9 +108,9 @@ def RunCommand(is_interactive):
         compas_rhino.display_message(
             "Edge Index: {0}\nForce Diagram Edge Length: {1:.3g}\nForce Drawing Scale: {2:.3g}\nForce Magnitude: {3:.3g}kN {4}".format(
                 index,
-                l,
+                L,
                 force.scale,
-                abs(f),
+                abs(F),
                 state,
             )
         )
