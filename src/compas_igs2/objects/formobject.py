@@ -44,6 +44,3 @@ class FormObject(DiagramObject):
             "tol.forces": FloatValue(0.01),
         }
     )
-
-    def __init__(self, *args, **kwargs):
-        super(FormObject, self).__init__(*args, **kwargs)

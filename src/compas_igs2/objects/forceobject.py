@@ -42,6 +42,3 @@ class ForceObject(DiagramObject):
             "tol.forces": FloatValue(1e-3),
         }
     )
-
-    def __init__(self, *args, **kwargs):
-        super(ForceObject, self).__init__(*args, **kwargs)
