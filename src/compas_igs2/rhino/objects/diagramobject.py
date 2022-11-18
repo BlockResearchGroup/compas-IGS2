@@ -5,6 +5,7 @@ from __future__ import division
 import Rhino
 from Rhino.Geometry import Point3d
 import compas_rhino
+
 from compas_ui.rhino.objects import RhinoMeshObject
 from compas_igs2.objects import DiagramObject
 
@@ -24,11 +25,14 @@ class RhinoDiagramObject(DiagramObject, RhinoMeshObject):
     # ==========================================================================
 
     def unselect(self):
-        """Unselect all Rhino objects associated with this diagram object."""
+        """
+        Unselect all Rhino objects associated with this diagram object.
+        """
         compas_rhino.rs.UnselectObjects(self.artist.guids)
 
     def select_vertex(self, message="Select Vertex."):
-        """Manually select one vertex in the Rhino view.
+        """
+        Manually select one vertex in the Rhino view.
 
         Returns
         -------
@@ -41,7 +45,8 @@ class RhinoDiagramObject(DiagramObject, RhinoMeshObject):
             return self.guid_vertex[guid]
 
     def select_edge(self, message="Select Edge."):
-        """Manually select one edge in the Rhino view.
+        """
+        Manually select one edge in the Rhino view.
 
         Returns
         -------
@@ -54,7 +59,8 @@ class RhinoDiagramObject(DiagramObject, RhinoMeshObject):
             return self.guid_edge[guid]
 
     def move(self):
-        """Move the entire diagram.
+        """
+        Move the entire diagram.
 
         Returns
         -------
@@ -92,7 +98,8 @@ class RhinoDiagramObject(DiagramObject, RhinoMeshObject):
         return True
 
     def move_vertex(self, vertex, constraint=None, allow_off=None):
-        """Move one vertex of the diagram and update the data structure to the new geometry.
+        """
+        Move one vertex of the diagram and update the data structure to the new geometry.
 
         Parameters
         ----------
@@ -151,7 +158,8 @@ class RhinoDiagramObject(DiagramObject, RhinoMeshObject):
         return True
 
     def move_vertices(self, vertices):
-        """Move a selection of vertices of the diagram and update the data structure to the new geometry.
+        """
+        Move a selection of vertices of the diagram and update the data structure to the new geometry.
 
         Parameters
         ----------

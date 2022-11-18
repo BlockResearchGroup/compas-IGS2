@@ -17,12 +17,14 @@ from .forceobject import RhinoForceObject
 
 @plugin(category="ui", requires=["Rhino"])
 def register_objects():
-
     RhinoObject.register(Diagram, RhinoDiagramObject, context="Rhino")
     RhinoObject.register(FormDiagram, RhinoFormObject, context="Rhino")
     RhinoObject.register(ForceDiagram, RhinoForceObject, context="Rhino")
-
     print("IGS Rhino Objects registered.")
 
 
-__all__ = ["RhinoDiagramObject", "RhinoForceObject", "RhinoFormObject"]
+__all__ = [
+    "RhinoDiagramObject",
+    "RhinoForceObject",
+    "RhinoFormObject",
+]
