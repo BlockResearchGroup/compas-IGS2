@@ -3,6 +3,7 @@ from __future__ import absolute_import
 from __future__ import division
 
 from abc import abstractmethod
+from compas.colors import Color
 from compas_igs2.artists import DiagramArtist
 
 
@@ -25,9 +26,9 @@ class FormArtist(DiagramArtist):
 
     def __init__(self, *args, **kwargs):
         super(FormArtist, self).__init__(*args, **kwargs)
-        self.color_compression = (0, 0, 255)
-        self.color_tension = (255, 0, 0)
-        self.default_edgecolor = (0, 0, 0)
+        self.color_compression = Color.blue()
+        self.color_tension = Color.red()
+        self.default_edgecolor = Color.black()
         self.scale_forces = 0.01
         self.tol_forces = 0.001
 
