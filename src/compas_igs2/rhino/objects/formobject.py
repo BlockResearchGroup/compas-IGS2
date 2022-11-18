@@ -17,9 +17,9 @@ class RhinoFormObject(FormObject, RhinoDiagramObject):
             self._inspector = FormDiagramVertexInspector(self.diagram)
         return self._inspector
 
-    def inspector_on(self, form):
-        self.inspector.form_vertex_xyz = form.artist.vertex_xyz
-        self.inspector.force_vertex_xyz = self.artist.vertex_xyz
+    def inspector_on(self, force):
+        self.inspector.form_vertex_xyz = self.artist.vertex_xyz
+        self.inspector.force_vertex_xyz = force.artist.vertex_xyz
         self.inspector.enable()
 
     def inspector_off(self):

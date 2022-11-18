@@ -37,66 +37,49 @@ class FormDiagramInspector(BaseConduit):
         self._force_vertex_xyz = vertex_xyz
 
     def enable(self):
-        """Enable the conduit."""
         self.mouse.Enabled = True
         self.Enabled = True
 
     def disable(self):
-        """Disable the conduit."""
         self.mouse.Enabled = False
         self.Enabled = False
 
 
 class FormDiagramVertexInspector(FormDiagramInspector):
-    """Inspect diagram topology at the vertices.
-
-    Parameters
-    ----------
-    mesh: :class:`compas_ags.diagrams.ForceDiagram`
-    tol: float, optional
-    dotcolor: rgb-tuple, optional
-    textcolor: rgb-tuple, optional
-    linecolor: rgb-tuple, optional
-
+    """
+    Inspect diagram topology at the vertices.
     """
 
-    def __init__(self, form, tol=0.1, dotcolor=None, textcolor=None, linecolor=None, **kwargs):
+    def __init__(self, form, tol=0.1, **kwargs):
         super(FormDiagramVertexInspector, self).__init__(**kwargs)
-        dotcolor = dotcolor or (255, 255, 0)
-        textcolor = textcolor or (0, 0, 0)
-        linecolor = linecolor or (255, 255, 0)
         self._form_vertex_xyz = None
         self._force_vertex_xyz = None
         self.form = form
-        self.force = form.dual
         self.tol = tol
-        self.dotcolor = FromArgb(*dotcolor)
-        self.textcolor = FromArgb(*textcolor)
-        self.linecolor = FromArgb(*linecolor)
-        self.mouse = Mouse(self)
-        self.form_edges = list(self.form.edges())
-        self.force_edges = list(self.force.ordered_edges(self.form))
+        self.dotcolor = FromArgb(255, 255, 0)
+        self.textcolor = FromArgb(0, 0, 0)
+        self.linecolor = FromArgb(255, 255, 0)
         self.form_vertex_edges = self._compute_form_vertex_edges()
         self.force_face_edges = self._compute_force_face_edges()
 
     def _compute_form_vertex_edges(self):
-        form_vertex_edges = {}
-        for edge in self.form_edges:
+        form_vertex_edges = {vertex: [] for vertex in self.form.vertices()}
+        for edge in self.form.edges_where(_is_edge=True):
             u, v = edge
-            if u not in form_vertex_edges:
-                form_vertex_edges[u] = []
             form_vertex_edges[u].append(edge)
-            if v not in form_vertex_edges:
-                form_vertex_edges[v] = []
             form_vertex_edges[v].append(edge)
         return form_vertex_edges
 
     def _compute_force_face_edges(self):
         force_face_edges = {}
-        for face in self.force.faces():
-            force_face_edges[face] = [
-                edge if self.force.has_edge(edge) else (edge[1], edge[0]) for edge in self.force.face_halfedges(face)
-            ]
+        for face in self.form.dual.faces():
+            force_face_edges[face] = []
+            for edge in self.form.dual.face_halfedges(face):
+                u, v = edge
+                if self.form.dual.has_edge(edge):
+                    force_face_edges[face].append((u, v))
+                else:
+                    force_face_edges[face].append((v, u))
         return force_face_edges
 
     def DrawForeground(self, e):
@@ -105,17 +88,19 @@ class FormDiagramVertexInspector(FormDiagramInspector):
         a = self.mouse.p1
         b = self.mouse.p2
         ab = subtract_vectors(b, a)
-        Lab = length_vector(ab)
-
-        if not Lab:
+        L = length_vector(ab)
+        if not L:
             return
 
         for index, vertex in enumerate(self.form_vertex_xyz):
             c = self.form_vertex_xyz[vertex]
             D = length_vector(cross_vectors(subtract_vectors(a, c), subtract_vectors(b, c)))
-            if D / Lab < self.tol:
+
+            if D / L < self.tol:
+
                 point = Point3d(*c)
                 draw_dot(point, str(index), self.dotcolor, self.textcolor)
+
                 lines = List[Line](len(self.form_vertex_edges[vertex]))
                 for u, v in self.form_vertex_edges[vertex]:
                     lines.Add(
@@ -125,6 +110,7 @@ class FormDiagramVertexInspector(FormDiagramInspector):
                         )
                     )
                 draw_arrows(lines, self.linecolor)
+
                 lines = List[Line](len(self.force_face_edges[vertex]))
                 for u, v in self.force_face_edges[vertex]:
                     lines.Add(
@@ -134,34 +120,5 @@ class FormDiagramVertexInspector(FormDiagramInspector):
                         )
                     )
                 draw_arrows(lines, self.linecolor)
+
                 break
-
-
-# class FormDiagramEdgeInspector(FormDiagramInspector):
-#     """Inspect diagram topology at the vertices.
-
-#     Parameters
-#     ----------
-#     mesh: :class:`compas_ags.diagrams.ForceDiagram`
-#     tol: float, optional
-#     dotcolor: rgb-tuple, optional
-#     textcolor: rgb-tuple, optional
-#     linecolor: rgb-tuple, optional
-#     """
-
-#     def __init__(self, force, tol=0.1, dotcolor=None, textcolor=None, linecolor=None, **kwargs):
-#         super(FormDiagramEdgeInspector, self).__init__(**kwargs)
-#         dotcolor = dotcolor or (255, 255, 0)
-#         textcolor = textcolor or (0, 0, 0)
-#         linecolor = linecolor or (255, 255, 0)
-#         self._form_vertex_xyz = None
-#         self._force_vertex_xyz = None
-#         self.form = force.dual
-#         self.force = force
-#         self.tol = tol
-#         self.dotcolor = FromArgb(*dotcolor)
-#         self.textcolor = FromArgb(*textcolor)
-#         self.linecolor = FromArgb(*linecolor)
-#         self.mouse = Mouse(self)
-#         self.force_edges = list(self.force.ordered_edges(self.form))
-#         self.form_edges = list(self.form.edges())
