@@ -32,6 +32,7 @@ def RunCommand(is_interactive):
     # Turn on edge labels
     form_settings = {k: form.settings.get(k) for k in form.settings.keys()}
     force_settings = {k: force.settings.get(k) for k in force.settings.keys()}
+
     form.settings["show.edgelabels"] = True
     force.settings["show.edgelabels"] = True
     form.settings["show.constraints"] = False
@@ -46,6 +47,7 @@ def RunCommand(is_interactive):
         form.settings[key] = value
     for key, value in force_settings.items():
         force.settings[key] = value
+
     ui.scene.update()
 
 

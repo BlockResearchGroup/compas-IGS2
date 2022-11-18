@@ -7,6 +7,7 @@ import compas_rhino
 import IGS2_form_constraint_vertex_cmd
 import IGS2_force_constraint_vertex_cmd
 
+
 __commandname__ = "IGS2__toolbar_form_constraints_vertex"
 
 

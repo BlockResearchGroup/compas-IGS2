@@ -29,17 +29,10 @@ def RunCommand(is_interactive):
     force = objects[0]
 
     # Store the current form viz settings
-    form_show_edges = form.settings["show.edges"]
-    form_show_forcelabels = form.settings["show.forcelabels"]
-    form_show_edgelabels = form.settings["show.edgelabels"]
-    form_show_forcepipes = form.settings["show.forcepipes"]
-    form_show_constraints = form.settings["show.constraints"]
+    form_settings = {k: form.settings.get(k) for k in form.settings.keys()}
 
     # Store the current force viz settings
-    force_show_edges = force.settings["show.edges"]
-    force_show_forcelabels = force.settings["show.forcelabels"]
-    force_show_edgelabels = force.settings["show.edgelabels"]
-    force_show_constraints = force.settings["show.constraints"]
+    force_settings = {k: force.settings.get(k) for k in force.settings.keys()}
 
     # Adjust form viz settings
     form.settings["show.edges"] = True
@@ -122,17 +115,12 @@ def RunCommand(is_interactive):
             break
 
     # Restore form viz settings
-    form.settings["show.edges"] = form_show_edges
-    form.settings["show.forcelabels"] = form_show_forcelabels
-    form.settings["show.edgelabels"] = form_show_edgelabels
-    form.settings["show.forcepipes"] = form_show_forcepipes
-    form.settings["show.constraints"] = form_show_constraints
+    for key, value in form_settings.items():
+        form.settings[key] = value
 
     # Restore force viz settings
-    force.settings["show.edges"] = force_show_edges
-    force.settings["show.forcelabels"] = force_show_forcelabels
-    force.settings["show.edgelabels"] = force_show_edgelabels
-    force.settings["show.constraints"] = force_show_constraints
+    for key, value in force_settings.items():
+        force.settings[key] = value
 
     # Update the scene and record
     ui.scene.update()

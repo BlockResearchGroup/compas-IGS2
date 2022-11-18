@@ -6,6 +6,7 @@ import compas_rhino
 from compas_ui.ui import UI
 from compas_igs2.rhino.forms import AttributesForm
 
+
 __commandname__ = "IGS2_constraint_table"
 
 
@@ -39,6 +40,7 @@ def RunCommand(is_interactive):
     form.settings["show.constraints"] = False
     force.settings["show.constraints"] = False
     form.settings["show.forcepipes"] = False
+
     ui.scene.update()
 
     AttributesForm.from_sceneNode(form, dual=force, tabs=["Constraints"])

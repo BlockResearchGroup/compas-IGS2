@@ -7,6 +7,7 @@ import compas_rhino
 import IGS2_form_constraint_edge_force_cmd
 import IGS2_form_constraint_edge_orientation_cmd
 
+
 __commandname__ = "IGS2__toolbar_form_constraints_edge"
 
 

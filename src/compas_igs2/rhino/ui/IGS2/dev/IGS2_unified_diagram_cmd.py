@@ -28,6 +28,8 @@ def RunCommand(is_interactive):
         return
     # force = objects[0]
 
+    compas_rhino.display_message("The unified diagram is not available yet.")
+
     # Update the scene and record
     ui.scene.update()
     ui.record()

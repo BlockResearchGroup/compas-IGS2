@@ -46,7 +46,7 @@ def RunCommand(is_interactive):
         # loc0 = force.location_0deg
         # loc90 = force.location_90deg
 
-        force.scale_from_3_points(message="Select the base node of the Force Diagram for the scaling operation.")
+        # force.scale_from_3_points(message="Select the base node of the Force Diagram for the scaling operation.")
 
         # anchor_xyz = force.location.copy()
 
@@ -60,6 +60,8 @@ def RunCommand(is_interactive):
         #     anchor_vector = anchor_xyz - loc0
         #     anchor_rotated = Point(-anchor_vector[1], anchor_vector[0], 0.0)  # rotate -90
         #     force.location_90deg = loc90 + anchor_rotated
+
+        compas_rhino.display_message("This scaling method is not available yet.")
 
     # Update the scene and record
     ui.scene.update()

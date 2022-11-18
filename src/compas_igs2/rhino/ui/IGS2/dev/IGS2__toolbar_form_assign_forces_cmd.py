@@ -5,6 +5,7 @@ from __future__ import division
 import IGS2_form_select_ind_cmd
 import IGS2_form_assign_forces_cmd
 
+
 __commandname__ = "IGS2__toolbar_form_assign_forces"
 
 
