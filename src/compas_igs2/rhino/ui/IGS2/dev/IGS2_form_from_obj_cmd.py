@@ -6,6 +6,7 @@ import os
 import compas_rhino
 
 from compas_ui.ui import UI
+from compas_ui.objects import Group
 from compas_ui.rhino.forms import FileForm
 
 from compas_ags.diagrams import FormGraph
@@ -73,7 +74,9 @@ def RunCommand(is_interactive):
             obj.name = "ForceDiagram.{}".format(index)
 
     # Add the form diagram to the scene.
-    ui.scene.add(form, name="FormDiagram")
+    group = ui.scene.add(Group(), name="IGS2")
+    group.add(form, name="FormDiagram")
+    ui.scene.active_object = group
     ui.scene.update()
     ui.record()
 

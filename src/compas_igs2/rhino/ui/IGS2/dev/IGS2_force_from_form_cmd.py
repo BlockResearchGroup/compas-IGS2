@@ -22,12 +22,11 @@ def RunCommand(is_interactive):
 
     ui = UI()
 
-    # Get the FormDiagram from the scene
-    objects = ui.scene.get("FormDiagram")
-    if not objects:
+    # Get the FormDiagram from the active group
+    form = ui.scene.active_object.get_child_by_name("FormDiagram")
+    if not form:
         compas_rhino.display_message("There is no FormDiagram in the scene.")
         return
-    form = objects[0]
 
     # Identify the independent edges.
     edges = list(form.diagram.edges_where(is_ind=True))
@@ -70,12 +69,14 @@ def RunCommand(is_interactive):
 
     # Get the current ForceDiagram from the scene
     # and remove it.
-    for obj in ui.scene.get("ForceDiagram"):
+    for obj in ui.scene.active_object.get_children_by_name("ForceDiagram"):
         ui.scene.remove(obj)
 
     # Create a (new) ForceDiagram and add it.
     forcediagram = ForceDiagram.from_formdiagram(form.diagram)
-    force = ui.scene.add(forcediagram, name="ForceDiagram")
+    group = ui.scene.active_object
+    force = group.add(forcediagram, name="ForceDiagram")
+    ui.scene.active_object = group
 
     # Update the form diagram
     form_update_q_from_qind = ui.proxy.function("compas_ags.ags.graphstatics.form_update_q_from_qind")
