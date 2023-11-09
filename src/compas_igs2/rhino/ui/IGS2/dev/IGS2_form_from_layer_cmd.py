@@ -15,7 +15,6 @@ __commandname__ = "IGS2_form_from_layer"
 
 @UI.error()
 def RunCommand(is_interactive):
-
     ui = UI()
 
     # Ask the user to specify a layer.
@@ -46,23 +45,9 @@ def RunCommand(is_interactive):
     # Conver the graph to a form diagram.
     form = FormDiagram.from_graph(graph)
 
-    for obj in ui.scene.objects:
-        name = obj.name
-        if name.startswith("FormDiagram"):
-            if name == "FormDiagram":
-                index = 1
-            else:
-                index = int(name.split(".")[-1]) + 1
-            obj.name = "FormDiagram.{}".format(index)
-
-    for obj in ui.scene.objects:
-        name = obj.name
-        if name.startswith("ForceDiagram"):
-            if name == "ForceDiagram":
-                index = 1
-            else:
-                index = int(name.split(".")[-1]) + 1
-            obj.name = "ForceDiagram.{}".format(index)
+    # Inform the user that the seen is about to be cleared.
+    # Ask the user to confirm.
+    ui.scene.clear()
 
     # Add the form diagram to the scene.
     ui.scene.add(form, name="FormDiagram")

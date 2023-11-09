@@ -5,8 +5,7 @@ channels:
 dependencies:
    - python=3.9
    - pip
-   - python-planarity
-   - compas>=1.17.3
+   - compas>=1.17.6
    - pip:
      - compas_cloud
      - compas_ui
