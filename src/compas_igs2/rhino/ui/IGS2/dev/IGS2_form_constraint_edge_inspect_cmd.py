@@ -11,7 +11,6 @@ __commandname__ = "IGS2_form_constraint_edge_inspect"
 
 @UI.error()
 def RunCommand(is_interactive):
-
     ui = UI()
 
     # Get the FormDiagram from the scene
@@ -52,7 +51,6 @@ def RunCommand(is_interactive):
 
     # Start an interaction loop
     while True:
-
         # Update the scene
         ui.scene.update()
 

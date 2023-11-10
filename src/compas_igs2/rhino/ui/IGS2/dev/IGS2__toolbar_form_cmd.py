@@ -13,7 +13,6 @@ __commandname__ = "IGS2__toolbar_form"
 
 
 def RunCommand(is_interactive):
-
     options = ["FromObj", "FromLines", "FromLayer"]
     option = compas_rhino.rs.GetString("Create Form:", strings=options)
 

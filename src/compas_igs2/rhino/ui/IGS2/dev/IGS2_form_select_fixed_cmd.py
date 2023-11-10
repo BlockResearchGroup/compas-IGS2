@@ -11,7 +11,6 @@ __commandname__ = "IGS2_form_select_fixed"
 
 @UI.error()
 def RunCommand(is_interactive):
-
     ui = UI()
 
     # Get the FormDiagram from the scene

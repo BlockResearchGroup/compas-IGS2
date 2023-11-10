@@ -13,7 +13,6 @@ __commandname__ = "IGS2_form_update_from_force"
 
 @UI.error()
 def RunCommand(is_interactive):
-
     ui = UI()
 
     # Get the FormDiagram from the scene

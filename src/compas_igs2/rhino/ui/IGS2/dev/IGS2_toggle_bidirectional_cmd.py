@@ -11,7 +11,6 @@ __commandname__ = "IGS2_toggle_bidirectional"
 
 @UI.error()
 def RunCommand(is_interactive):
-
     ui = UI()
 
     answer = compas_rhino.rs.GetString("Autoupdate of Form/Force Diagram", "Cancel", ["On", "Off", "Cancel"])

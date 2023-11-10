@@ -13,7 +13,6 @@ __commandname__ = "IGS2_form_constraint_vertex"
 
 @UI.error()
 def RunCommand(is_interactive):
-
     ui = UI()
 
     # Get the FormDiagram from the scene

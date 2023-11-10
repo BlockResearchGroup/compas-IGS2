@@ -11,7 +11,6 @@ __commandname__ = "IGS2_form_move_nodes"
 
 @UI.error()
 def RunCommand(is_interactive):
-
     ui = UI()
 
     # Get the FormDiagram from the scene
@@ -47,7 +46,6 @@ def RunCommand(is_interactive):
 
     # Start an interactive loop
     while True:
-
         # Select form vertices and break out if none are selected
         vertices = form.select_vertices("Select vertices (Press ESC to exit)")
         if not vertices:
@@ -56,7 +54,6 @@ def RunCommand(is_interactive):
         # If form vertices were moved
         # update equilibrium if auto update is on
         if form.move_vertices(vertices):
-
             if ui.registry["IGS2"]["autoupdate"]:
                 form_update_q_from_qind = ui.proxy.function("compas_ags.ags.graphstatics.form_update_q_from_qind")
                 formdiagram = form_update_q_from_qind(form.diagram)

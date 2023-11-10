@@ -16,7 +16,6 @@ __commandname__ = "IGS2__toolbar_inspector"
 
 
 def RunCommand(is_interactive):
-
     options = [
         "EdgesTable",
         "EdgeInformation",
