@@ -12,7 +12,6 @@ __commandname__ = "IGS2__toolbar_form_constraints_edge"
 
 
 def RunCommand(is_interactive):
-
     options = ["ForceMagnitude", "Orientation"]
     option = compas_rhino.rs.GetString("Constraint Edge:", strings=options)
 

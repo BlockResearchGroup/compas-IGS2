@@ -11,7 +11,6 @@ __commandname__ = "IGS2_form_constraint_vertex_inspect"
 
 @UI.error()
 def RunCommand(is_interactive):
-
     ui = UI()
 
     # Get the FormDiagram from the scene
@@ -53,7 +52,6 @@ def RunCommand(is_interactive):
 
     # Start an interactive loop
     while True:
-
         # Apply the viz settings
         ui.scene.update()
 

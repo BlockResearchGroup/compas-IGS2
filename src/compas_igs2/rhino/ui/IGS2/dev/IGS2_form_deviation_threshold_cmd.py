@@ -11,7 +11,6 @@ __commandname__ = "IGS2_form_deviation_threshold"
 
 @UI.error()
 def RunCommand(is_interactive):
-
     ui = UI()
 
     # Ask the user for the maximum deviation value.

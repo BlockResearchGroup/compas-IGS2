@@ -13,7 +13,6 @@ __commandname__ = "IGS2_force_move_nodes"
 
 @UI.error()
 def RunCommand(is_interactive):
-
     ui = UI()
 
     # Get the FormDiagram from the scene
@@ -51,7 +50,6 @@ def RunCommand(is_interactive):
 
     # Start interactive loop
     while True:
-
         # Ask to select vertices
         # and abort if there are none
         vertices = force.select_vertices("Select vertices (Press ESC to exit)")

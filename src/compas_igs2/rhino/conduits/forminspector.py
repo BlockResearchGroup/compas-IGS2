@@ -97,7 +97,6 @@ class FormDiagramVertexInspector(FormDiagramInspector):
             D = length_vector(cross_vectors(subtract_vectors(a, c), subtract_vectors(b, c)))
 
             if D / L < self.tol:
-
                 point = Point3d(*c)
                 draw_dot(point, str(index), self.dotcolor, self.textcolor)
 

@@ -524,7 +524,6 @@ class AttributesForm(forms.Dialog[bool]):
 
 
 if __name__ == "__main__":
-
     scene = get_scene()
     form = scene.get("FormDiagram")[0]
     force = scene.get("ForceDiagram")[0]

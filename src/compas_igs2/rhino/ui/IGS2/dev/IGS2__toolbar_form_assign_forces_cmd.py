@@ -10,7 +10,6 @@ __commandname__ = "IGS2__toolbar_form_assign_forces"
 
 
 def RunCommand(is_interactive):
-
     IGS2_form_select_ind_cmd.RunCommand(True)
     IGS2_form_assign_forces_cmd.RunCommand(True)
 

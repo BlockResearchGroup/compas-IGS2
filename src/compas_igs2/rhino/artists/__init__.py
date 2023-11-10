@@ -16,7 +16,6 @@ from .formartist import RhinoFormArtist
 
 @plugin(category="factories", requires=["Rhino"])
 def register_artists():
-
     Artist.register(FormDiagram, RhinoFormArtist, context="Rhino")
     Artist.register(ForceDiagram, RhinoForceArtist, context="Rhino")
 

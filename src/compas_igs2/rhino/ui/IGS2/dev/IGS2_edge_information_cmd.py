@@ -11,7 +11,6 @@ __commandname__ = "IGS2_edge_information"
 
 @UI.error()
 def RunCommand(is_interactive):
-
     ui = UI()
 
     # Get the FormDiagram from the scene

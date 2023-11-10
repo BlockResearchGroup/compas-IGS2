@@ -12,7 +12,6 @@ __commandname__ = "IGS2__toolbar_form_constraints_vertex"
 
 
 def RunCommand(is_interactive):
-
     options = ["FormDiagram", "ForceDiagram"]
     option = compas_rhino.rs.GetString("Constraint Vertex in the:", strings=options)
 
