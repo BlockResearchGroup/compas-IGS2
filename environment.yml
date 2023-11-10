@@ -1,14 +1,13 @@
-name: csd1
+name: csd2
 channels:
     - conda-forge
 
 dependencies:
    - python=3.9
    - pip
-   - python-planarity
-   - compas>=1.17.3
    - pip:
+     - compas==1.17.9
      - compas_cloud
-     - compas_ui>=0.8.3
-     - compas_ags>=1.2.0
-     - compas_igs2>=0.2.0
+     - compas_ui
+     - compas_ags
+     - compas_igs2
