@@ -28,7 +28,7 @@ optional_requirements = {}
 
 setup(
     name="compas_igs2",
-    version="0.2.0",
+    version="0.2.1",
     description="Interactive 2D graphic statics based on compas_ags",
     long_description=long_description,
     long_description_content_type="text/markdown",
